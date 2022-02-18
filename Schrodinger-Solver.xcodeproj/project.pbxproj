@@ -20,6 +20,9 @@
 		2CD2E4F627C057D400D208C7 /* DifferentialEquationSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2E4F527C057D400D208C7 /* DifferentialEquationSolver.swift */; };
 		2CD2E4F727C057D400D208C7 /* DifferentialEquationSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2E4F527C057D400D208C7 /* DifferentialEquationSolver.swift */; };
 		2CD2E4F827C057D400D208C7 /* DifferentialEquationSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2E4F527C057D400D208C7 /* DifferentialEquationSolver.swift */; };
+		2CD2E4FA27C0604D00D208C7 /* Potential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2E4F927C0604D00D208C7 /* Potential.swift */; };
+		2CD2E4FB27C0604D00D208C7 /* Potential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2E4F927C0604D00D208C7 /* Potential.swift */; };
+		2CD2E4FC27C0604D00D208C7 /* Potential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2E4F927C0604D00D208C7 /* Potential.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,7 @@
 		2CD2E4DD27C057AF00D208C7 /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		2CD2E4DF27C057AF00D208C7 /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
 		2CD2E4F527C057D400D208C7 /* DifferentialEquationSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifferentialEquationSolver.swift; sourceTree = "<group>"; };
+		2CD2E4F927C0604D00D208C7 /* Potential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Potential.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +108,7 @@
 				2CD2E4B927C057AD00D208C7 /* Schrodinger_SolverApp.swift */,
 				2CD2E4BA27C057AD00D208C7 /* ContentView.swift */,
 				2CD2E4F527C057D400D208C7 /* DifferentialEquationSolver.swift */,
+				2CD2E4F927C0604D00D208C7 /* Potential.swift */,
 				2CD2E4BB27C057AE00D208C7 /* Assets.xcassets */,
 			);
 			path = Shared;
@@ -306,6 +311,7 @@
 			files = (
 				2CD2E4E327C057AF00D208C7 /* ContentView.swift in Sources */,
 				2CD2E4F627C057D400D208C7 /* DifferentialEquationSolver.swift in Sources */,
+				2CD2E4FA27C0604D00D208C7 /* Potential.swift in Sources */,
 				2CD2E4E127C057AF00D208C7 /* Schrodinger_SolverApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -316,6 +322,7 @@
 			files = (
 				2CD2E4E427C057AF00D208C7 /* ContentView.swift in Sources */,
 				2CD2E4F727C057D400D208C7 /* DifferentialEquationSolver.swift in Sources */,
+				2CD2E4FB27C0604D00D208C7 /* Potential.swift in Sources */,
 				2CD2E4E227C057AF00D208C7 /* Schrodinger_SolverApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -335,6 +342,7 @@
 			files = (
 				2CD2E4E027C057AF00D208C7 /* Tests_macOSLaunchTests.swift in Sources */,
 				2CD2E4F827C057D400D208C7 /* DifferentialEquationSolver.swift in Sources */,
+				2CD2E4FC27C0604D00D208C7 /* Potential.swift in Sources */,
 				2CD2E4DE27C057AF00D208C7 /* Tests_macOS.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
