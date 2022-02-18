@@ -1,0 +1,716 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2CD2E4D227C057AF00D208C7 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2E4D127C057AF00D208C7 /* Tests_iOS.swift */; };
+		2CD2E4D427C057AF00D208C7 /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2E4D327C057AF00D208C7 /* Tests_iOSLaunchTests.swift */; };
+		2CD2E4DE27C057AF00D208C7 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2E4DD27C057AF00D208C7 /* Tests_macOS.swift */; };
+		2CD2E4E027C057AF00D208C7 /* Tests_macOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2E4DF27C057AF00D208C7 /* Tests_macOSLaunchTests.swift */; };
+		2CD2E4E127C057AF00D208C7 /* Schrodinger_SolverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2E4B927C057AD00D208C7 /* Schrodinger_SolverApp.swift */; };
+		2CD2E4E227C057AF00D208C7 /* Schrodinger_SolverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2E4B927C057AD00D208C7 /* Schrodinger_SolverApp.swift */; };
+		2CD2E4E327C057AF00D208C7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2E4BA27C057AD00D208C7 /* ContentView.swift */; };
+		2CD2E4E427C057AF00D208C7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2E4BA27C057AD00D208C7 /* ContentView.swift */; };
+		2CD2E4E527C057AF00D208C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CD2E4BB27C057AE00D208C7 /* Assets.xcassets */; };
+		2CD2E4E627C057AF00D208C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CD2E4BB27C057AE00D208C7 /* Assets.xcassets */; };
+		2CD2E4F627C057D400D208C7 /* DifferentialEquationSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2E4F527C057D400D208C7 /* DifferentialEquationSolver.swift */; };
+		2CD2E4F727C057D400D208C7 /* DifferentialEquationSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2E4F527C057D400D208C7 /* DifferentialEquationSolver.swift */; };
+		2CD2E4F827C057D400D208C7 /* DifferentialEquationSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2E4F527C057D400D208C7 /* DifferentialEquationSolver.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2CD2E4CE27C057AF00D208C7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2CD2E4B427C057AD00D208C7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2CD2E4BF27C057AE00D208C7;
+			remoteInfo = "Schrodinger-Solver (iOS)";
+		};
+		2CD2E4DA27C057AF00D208C7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2CD2E4B427C057AD00D208C7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2CD2E4C527C057AF00D208C7;
+			remoteInfo = "Schrodinger-Solver (macOS)";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2CD2E4B927C057AD00D208C7 /* Schrodinger_SolverApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schrodinger_SolverApp.swift; sourceTree = "<group>"; };
+		2CD2E4BA27C057AD00D208C7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		2CD2E4BB27C057AE00D208C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2CD2E4C027C057AE00D208C7 /* Schrodinger-Solver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Schrodinger-Solver.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CD2E4C627C057AF00D208C7 /* Schrodinger-Solver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Schrodinger-Solver.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CD2E4C827C057AF00D208C7 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		2CD2E4CD27C057AF00D208C7 /* Tests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CD2E4D127C057AF00D208C7 /* Tests_iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOS.swift; sourceTree = "<group>"; };
+		2CD2E4D327C057AF00D208C7 /* Tests_iOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOSLaunchTests.swift; sourceTree = "<group>"; };
+		2CD2E4D927C057AF00D208C7 /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CD2E4DD27C057AF00D208C7 /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
+		2CD2E4DF27C057AF00D208C7 /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
+		2CD2E4F527C057D400D208C7 /* DifferentialEquationSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifferentialEquationSolver.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2CD2E4BD27C057AE00D208C7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CD2E4C327C057AF00D208C7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CD2E4CA27C057AF00D208C7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CD2E4D627C057AF00D208C7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2CD2E4B327C057AD00D208C7 = {
+			isa = PBXGroup;
+			children = (
+				2CD2E4B827C057AD00D208C7 /* Shared */,
+				2CD2E4C727C057AF00D208C7 /* macOS */,
+				2CD2E4D027C057AF00D208C7 /* Tests iOS */,
+				2CD2E4DC27C057AF00D208C7 /* Tests macOS */,
+				2CD2E4C127C057AE00D208C7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2CD2E4B827C057AD00D208C7 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				2CD2E4B927C057AD00D208C7 /* Schrodinger_SolverApp.swift */,
+				2CD2E4BA27C057AD00D208C7 /* ContentView.swift */,
+				2CD2E4F527C057D400D208C7 /* DifferentialEquationSolver.swift */,
+				2CD2E4BB27C057AE00D208C7 /* Assets.xcassets */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		2CD2E4C127C057AE00D208C7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2CD2E4C027C057AE00D208C7 /* Schrodinger-Solver.app */,
+				2CD2E4C627C057AF00D208C7 /* Schrodinger-Solver.app */,
+				2CD2E4CD27C057AF00D208C7 /* Tests iOS.xctest */,
+				2CD2E4D927C057AF00D208C7 /* Tests macOS.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2CD2E4C727C057AF00D208C7 /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				2CD2E4C827C057AF00D208C7 /* macOS.entitlements */,
+			);
+			path = macOS;
+			sourceTree = "<group>";
+		};
+		2CD2E4D027C057AF00D208C7 /* Tests iOS */ = {
+			isa = PBXGroup;
+			children = (
+				2CD2E4D127C057AF00D208C7 /* Tests_iOS.swift */,
+				2CD2E4D327C057AF00D208C7 /* Tests_iOSLaunchTests.swift */,
+			);
+			path = "Tests iOS";
+			sourceTree = "<group>";
+		};
+		2CD2E4DC27C057AF00D208C7 /* Tests macOS */ = {
+			isa = PBXGroup;
+			children = (
+				2CD2E4DD27C057AF00D208C7 /* Tests_macOS.swift */,
+				2CD2E4DF27C057AF00D208C7 /* Tests_macOSLaunchTests.swift */,
+			);
+			path = "Tests macOS";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2CD2E4BF27C057AE00D208C7 /* Schrodinger-Solver (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2CD2E4E927C057AF00D208C7 /* Build configuration list for PBXNativeTarget "Schrodinger-Solver (iOS)" */;
+			buildPhases = (
+				2CD2E4BC27C057AE00D208C7 /* Sources */,
+				2CD2E4BD27C057AE00D208C7 /* Frameworks */,
+				2CD2E4BE27C057AE00D208C7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Schrodinger-Solver (iOS)";
+			productName = "Schrodinger-Solver (iOS)";
+			productReference = 2CD2E4C027C057AE00D208C7 /* Schrodinger-Solver.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2CD2E4C527C057AF00D208C7 /* Schrodinger-Solver (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2CD2E4EC27C057AF00D208C7 /* Build configuration list for PBXNativeTarget "Schrodinger-Solver (macOS)" */;
+			buildPhases = (
+				2CD2E4C227C057AF00D208C7 /* Sources */,
+				2CD2E4C327C057AF00D208C7 /* Frameworks */,
+				2CD2E4C427C057AF00D208C7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Schrodinger-Solver (macOS)";
+			productName = "Schrodinger-Solver (macOS)";
+			productReference = 2CD2E4C627C057AF00D208C7 /* Schrodinger-Solver.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2CD2E4CC27C057AF00D208C7 /* Tests iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2CD2E4EF27C057AF00D208C7 /* Build configuration list for PBXNativeTarget "Tests iOS" */;
+			buildPhases = (
+				2CD2E4C927C057AF00D208C7 /* Sources */,
+				2CD2E4CA27C057AF00D208C7 /* Frameworks */,
+				2CD2E4CB27C057AF00D208C7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2CD2E4CF27C057AF00D208C7 /* PBXTargetDependency */,
+			);
+			name = "Tests iOS";
+			productName = "Tests iOS";
+			productReference = 2CD2E4CD27C057AF00D208C7 /* Tests iOS.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		2CD2E4D827C057AF00D208C7 /* Tests macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2CD2E4F227C057AF00D208C7 /* Build configuration list for PBXNativeTarget "Tests macOS" */;
+			buildPhases = (
+				2CD2E4D527C057AF00D208C7 /* Sources */,
+				2CD2E4D627C057AF00D208C7 /* Frameworks */,
+				2CD2E4D727C057AF00D208C7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2CD2E4DB27C057AF00D208C7 /* PBXTargetDependency */,
+			);
+			name = "Tests macOS";
+			productName = "Tests macOS";
+			productReference = 2CD2E4D927C057AF00D208C7 /* Tests macOS.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2CD2E4B427C057AD00D208C7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1320;
+				LastUpgradeCheck = 1320;
+				TargetAttributes = {
+					2CD2E4BF27C057AE00D208C7 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+					2CD2E4C527C057AF00D208C7 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+					2CD2E4CC27C057AF00D208C7 = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = 2CD2E4BF27C057AE00D208C7;
+					};
+					2CD2E4D827C057AF00D208C7 = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = 2CD2E4C527C057AF00D208C7;
+					};
+				};
+			};
+			buildConfigurationList = 2CD2E4B727C057AD00D208C7 /* Build configuration list for PBXProject "Schrodinger-Solver" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2CD2E4B327C057AD00D208C7;
+			productRefGroup = 2CD2E4C127C057AE00D208C7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2CD2E4BF27C057AE00D208C7 /* Schrodinger-Solver (iOS) */,
+				2CD2E4C527C057AF00D208C7 /* Schrodinger-Solver (macOS) */,
+				2CD2E4CC27C057AF00D208C7 /* Tests iOS */,
+				2CD2E4D827C057AF00D208C7 /* Tests macOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2CD2E4BE27C057AE00D208C7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CD2E4E527C057AF00D208C7 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CD2E4C427C057AF00D208C7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CD2E4E627C057AF00D208C7 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CD2E4CB27C057AF00D208C7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CD2E4D727C057AF00D208C7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2CD2E4BC27C057AE00D208C7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CD2E4E327C057AF00D208C7 /* ContentView.swift in Sources */,
+				2CD2E4F627C057D400D208C7 /* DifferentialEquationSolver.swift in Sources */,
+				2CD2E4E127C057AF00D208C7 /* Schrodinger_SolverApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CD2E4C227C057AF00D208C7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CD2E4E427C057AF00D208C7 /* ContentView.swift in Sources */,
+				2CD2E4F727C057D400D208C7 /* DifferentialEquationSolver.swift in Sources */,
+				2CD2E4E227C057AF00D208C7 /* Schrodinger_SolverApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CD2E4C927C057AF00D208C7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CD2E4D427C057AF00D208C7 /* Tests_iOSLaunchTests.swift in Sources */,
+				2CD2E4D227C057AF00D208C7 /* Tests_iOS.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CD2E4D527C057AF00D208C7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CD2E4E027C057AF00D208C7 /* Tests_macOSLaunchTests.swift in Sources */,
+				2CD2E4F827C057D400D208C7 /* DifferentialEquationSolver.swift in Sources */,
+				2CD2E4DE27C057AF00D208C7 /* Tests_macOS.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2CD2E4CF27C057AF00D208C7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2CD2E4BF27C057AE00D208C7 /* Schrodinger-Solver (iOS) */;
+			targetProxy = 2CD2E4CE27C057AF00D208C7 /* PBXContainerItemProxy */;
+		};
+		2CD2E4DB27C057AF00D208C7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2CD2E4C527C057AF00D208C7 /* Schrodinger-Solver (macOS) */;
+			targetProxy = 2CD2E4DA27C057AF00D208C7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		2CD2E4E727C057AF00D208C7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		2CD2E4E827C057AF00D208C7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		2CD2E4EA27C057AF00D208C7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 37PA3332DC;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "IIT.Schrodinger-Solver";
+				PRODUCT_NAME = "Schrodinger-Solver";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2CD2E4EB27C057AF00D208C7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 37PA3332DC;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "IIT.Schrodinger-Solver";
+				PRODUCT_NAME = "Schrodinger-Solver";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2CD2E4ED27C057AF00D208C7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 37PA3332DC;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "IIT.Schrodinger-Solver";
+				PRODUCT_NAME = "Schrodinger-Solver";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		2CD2E4EE27C057AF00D208C7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 37PA3332DC;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "IIT.Schrodinger-Solver";
+				PRODUCT_NAME = "Schrodinger-Solver";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		2CD2E4F027C057AF00D208C7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 37PA3332DC;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "IIT.Tests-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Schrodinger-Solver (iOS)";
+			};
+			name = Debug;
+		};
+		2CD2E4F127C057AF00D208C7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 37PA3332DC;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "IIT.Tests-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Schrodinger-Solver (iOS)";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2CD2E4F327C057AF00D208C7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 37PA3332DC;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "IIT.Tests-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "Schrodinger-Solver (macOS)";
+			};
+			name = Debug;
+		};
+		2CD2E4F427C057AF00D208C7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 37PA3332DC;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "IIT.Tests-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "Schrodinger-Solver (macOS)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2CD2E4B727C057AD00D208C7 /* Build configuration list for PBXProject "Schrodinger-Solver" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CD2E4E727C057AF00D208C7 /* Debug */,
+				2CD2E4E827C057AF00D208C7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2CD2E4E927C057AF00D208C7 /* Build configuration list for PBXNativeTarget "Schrodinger-Solver (iOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CD2E4EA27C057AF00D208C7 /* Debug */,
+				2CD2E4EB27C057AF00D208C7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2CD2E4EC27C057AF00D208C7 /* Build configuration list for PBXNativeTarget "Schrodinger-Solver (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CD2E4ED27C057AF00D208C7 /* Debug */,
+				2CD2E4EE27C057AF00D208C7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2CD2E4EF27C057AF00D208C7 /* Build configuration list for PBXNativeTarget "Tests iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CD2E4F027C057AF00D208C7 /* Debug */,
+				2CD2E4F127C057AF00D208C7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2CD2E4F227C057AF00D208C7 /* Build configuration list for PBXNativeTarget "Tests macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CD2E4F327C057AF00D208C7 /* Debug */,
+				2CD2E4F427C057AF00D208C7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2CD2E4B427C057AD00D208C7 /* Project object */;
+}
