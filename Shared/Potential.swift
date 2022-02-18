@@ -30,9 +30,21 @@ func quadraticWell(xMin: Double, xMax: Double, step: Double, amplitude: Double) 
     return generalWell(xMin: xMin, xMax: xMax, step: step, f: {(x:Double) -> Double in return amplitude * x * x})
 }
 
-func triangleWell(xMin: Double, xMax: Double, step: Double, amplitude: Double) -> [CoordTuple] {
-    func triangleWell(x: Double) -> Double {
-        if (x > 0.2*xMax && (x < xMax / 2.0)) {
+func squareBarrier(xMin: Double, xMax: Double, step: Double, amplitude: Double) -> [CoordTuple] {
+    func squareBarrier(x: Double) -> Double {
+        if (x > 0.4*xMax && (x < 0.6*xMax)) {
+            return amplitude
+        } else {
+            return 0.0
+        }
+    }
+    
+    return generalWell(xMin: xMin, xMax: xMax, step: step, f: squareBarrier)
+}
+
+func triangleBarrier(xMin: Double, xMax: Double, step: Double, amplitude: Double) -> [CoordTuple] {
+    func triangleBarrier(x: Double) -> Double {
+        if (x > 0.4*xMax && (x < xMax / 2.0)) {
             return amplitude * x
         } else if (x > xMax / 2.0 && x < 0.6*xMax) {
             return -amplitude * x + (amplitude * xMax / 2)
@@ -40,5 +52,6 @@ func triangleWell(xMin: Double, xMax: Double, step: Double, amplitude: Double) -
             return 0.0
         }
     }
-    return generalWell(xMin: xMin, xMax: xMax, step: step, f: triangleWell)
+    
+    return generalWell(xMin: xMin, xMax: xMax, step: step, f: triangleBarrier)
 }
