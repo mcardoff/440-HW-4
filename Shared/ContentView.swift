@@ -8,9 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @ObservedObject var solver = SchrodingerSolver()
+    
     var body: some View {
-        Text("Hello, world!")
+        Button("Do Stuff", action: self.calculate)
+            .frame(width: 100)
             .padding()
+    }
+    
+    func calculate() {
+        solver.eulerSolve(a: 10, steps: 100, V: {(_:Double) -> Double in return 0}, ic: (psi: 0, psip: 1))
+        for item in solver.psiVal {
+            print(item)
+        }
     }
 }
 
