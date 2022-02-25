@@ -34,9 +34,6 @@ struct ContentView: View {
     
     func calculate() {
         solver.eulerSolve(a: 2, steps: 1000, V: {(_:Double) -> Double in return 0}, ic: (psi: 0, psip: 1))
-        for item in solver.psiVal {
-            print(item)
-        }
     }
 }
 

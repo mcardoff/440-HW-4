@@ -32,7 +32,7 @@ class PlotDataClass: NSObject, ObservableObject {
         //set the Plot Parameters
         changingPlotParameters.yMax = 1.0
         changingPlotParameters.yMin = -1.0
-        changingPlotParameters.xMax = 2.0
+        changingPlotParameters.xMax = 2.1
         changingPlotParameters.xMin = -0.1
         changingPlotParameters.xLabel = "x"
         changingPlotParameters.yLabel = "y"
