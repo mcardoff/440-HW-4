@@ -47,7 +47,6 @@ class SchrodingerSolver: NSObject, ObservableObject {
     
     // solve Schrodinger Equation in 1D with potential
     func eulerSolve(a: Double, steps: Double, V: Potential, ic: InitialCondition) {
-        //    let stepSize = 0.1
         let precision = 1e-5
         
 //        var psi : [Double] = [ic.psi], psip : [Double] = [ic.psip],
@@ -120,13 +119,10 @@ class SchrodingerSolver: NSObject, ObservableObject {
         var firstTimeThrough = true
         
         for energyVal in stride(from: 0, to: 1, by: 0.25) {
-            var curPsiList = [ic.psi]
-            var curPsipList = [ic.psip]
+            var curPsiList = [ic.psi], curPsipList = [ic.psip]
             for x in stride(from: stepSize, to: a, by: stepSize) {
                 // do n steps in total
-                if(firstTimeThrough) {
-                    xs.append(x)
-                }
+                if(firstTimeThrough) { xs.append(x) }
 //                let energyVal : Double =
                 let nextPsi  =  curPsi + stepSize * curPsip
                 let nextPsiP = curPsip + (stepSize * Schrod(x: x, mass: 1.0, hbar: 1.0, energy: energyVal, V: V) * curPsi)
@@ -138,15 +134,14 @@ class SchrodingerSolver: NSObject, ObservableObject {
                 curPsiList.append(curPsi)
                 curPsipList.append(curPsip)
             }
-            if(firstTimeThrough) {
-                firstTimeThrough = false
-            }
+            if(firstTimeThrough) { firstTimeThrough = false }
+            print("Adding to collection")
             psiCollection.append(curPsiList)
             psipCollection.append(curPsipList)
             lastPointForBC.append((psi: curPsi, energy: energyVal))
         }
         
-//        print()
+        print(psiCollection.count)
         // Boundary Condition is that psi(a) = 0 at the correct energy
         for i in 0..<lastPointForBC.count {
             let energyVal = lastPointForBC[i].energy
@@ -159,7 +154,7 @@ class SchrodingerSolver: NSObject, ObservableObject {
             }
         }
         
-        psiVal.append(contentsOf: psiCollection[4])
+//        psiVal.append(contentsOf: psiCollection[0])
         xVal.append(contentsOf: xs)
         toPlotData(xvals: xVal, yvals: psiCollection)
 //        toDataCollection(xvals: xs, funVals: goodPsis)
