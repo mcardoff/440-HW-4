@@ -41,6 +41,7 @@ class SchrodingerSolver: NSObject, ObservableObject {
     @Published var psiVal : [Double] = []
     @Published var psipVal : [Double] = []
     @Published var xVal : [Double] = []
+    @Published var zipped : [plotDataType] = []
     
     // solve Schrodinger Equation in 1D with potential
     func eulerSolve(a: Double, steps: Double, V: Potential, ic: InitialCondition) {
@@ -52,11 +53,12 @@ class SchrodingerSolver: NSObject, ObservableObject {
         let stepSize = a / steps
         var curPsi = ic.psi
         var curPsip = ic.psip
-        for x in stride(from: stepSize, to: a, by: stepSize) {
+        for x in stride(from: stepSize, to: a-stepSize, by: stepSize) {
             // do n steps
             xs.append(x)
+            let en = Double.pi * Double.pi / 8
             let nextPsi  =  curPsi + stepSize * curPsip
-            let nextPsiP = curPsip + stepSize * Schrod(x: x, mass: 1.0, hbar: 1.0, energy: 10, V: V) * curPsi
+            let nextPsiP = curPsip + stepSize * Schrod(x: x, mass: 1.0, hbar: 1.0, energy: en, V: V) * curPsi
             curPsi  = nextPsi
             curPsip = nextPsiP
             
@@ -64,14 +66,25 @@ class SchrodingerSolver: NSObject, ObservableObject {
             psip.append(curPsip)
         }
         
+        psi.append(0)
+        xs.append(a)
         psiVal.append(contentsOf: psi)
         psipVal.append(contentsOf: psip)
         xVal.append(contentsOf: xs)
+        toPlotData(xvals: xVal, yvals: psiVal)
     }
     
     func Schrod(x: Double, mass: Double, hbar: Double, energy: Double, V: Potential) -> Double {
         let consts = -2.0 * mass / (hbar * hbar)
         let rest = energy - V(x)
         return consts * rest
+    }
+    
+    func toPlotData(xvals: [Double], yvals: [Double]) {
+        assert((xvals.count == yvals.count) && yvals.count > 0)
+        for i in 0..<xvals.count {
+            let x = xvals[i], y = yvals[i]
+            zipped.append([.X: x, .Y: y])
+        }
     }
 }

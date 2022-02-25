@@ -45,10 +45,6 @@
 		2CD73EC427C97837002EA94B /* PlotDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD73EC227C97837002EA94B /* PlotDataClass.swift */; };
 		2CD73EC527C97837002EA94B /* PlotDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD73EC227C97837002EA94B /* PlotDataClass.swift */; };
 		2CD73EC627C97837002EA94B /* PlotDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD73EC227C97837002EA94B /* PlotDataClass.swift */; };
-		2CD73EC827C9784D002EA94B /* PlotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD73EC727C9784D002EA94B /* PlotView.swift */; };
-		2CD73EC927C9784D002EA94B /* PlotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD73EC727C9784D002EA94B /* PlotView.swift */; };
-		2CD73ECA27C9784D002EA94B /* PlotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD73EC727C9784D002EA94B /* PlotView.swift */; };
-		2CD73ECB27C9784D002EA94B /* PlotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD73EC727C9784D002EA94B /* PlotView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,7 +84,6 @@
 		2CD73EB827C97806002EA94B /* CorePlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorePlot.swift; sourceTree = "<group>"; };
 		2CD73EBD27C9781F002EA94B /* PlotClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlotClass.swift; sourceTree = "<group>"; };
 		2CD73EC227C97837002EA94B /* PlotDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlotDataClass.swift; sourceTree = "<group>"; };
-		2CD73EC727C9784D002EA94B /* PlotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlotView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,7 +197,6 @@
 				2CD73EB827C97806002EA94B /* CorePlot.swift */,
 				2CD73EBD27C9781F002EA94B /* PlotClass.swift */,
 				2CD73EC227C97837002EA94B /* PlotDataClass.swift */,
-				2CD73EC727C9784D002EA94B /* PlotView.swift */,
 			);
 			path = Plotting;
 			sourceTree = "<group>";
@@ -375,7 +369,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CD2E4E327C057AF00D208C7 /* ContentView.swift in Sources */,
-				2CD73EC827C9784D002EA94B /* PlotView.swift in Sources */,
 				2CD2E4F627C057D400D208C7 /* DifferentialEquationSolver.swift in Sources */,
 				2CD2E4FA27C0604D00D208C7 /* Potential.swift in Sources */,
 				2CD73EB927C97806002EA94B /* CorePlot.swift in Sources */,
@@ -392,7 +385,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CD2E4E427C057AF00D208C7 /* ContentView.swift in Sources */,
-				2CD73EC927C9784D002EA94B /* PlotView.swift in Sources */,
 				2CD2E4F727C057D400D208C7 /* DifferentialEquationSolver.swift in Sources */,
 				2CD2E4FB27C0604D00D208C7 /* Potential.swift in Sources */,
 				2CD73EBA27C97806002EA94B /* CorePlot.swift in Sources */,
@@ -411,7 +403,6 @@
 				2CD2E4D427C057AF00D208C7 /* Tests_iOSLaunchTests.swift in Sources */,
 				2CD73EB627C977F8002EA94B /* ChangingPlotParameters.swift in Sources */,
 				2CD73EAE27C97716002EA94B /* CalculatePlotData.swift in Sources */,
-				2CD73ECA27C9784D002EA94B /* PlotView.swift in Sources */,
 				2CD2E4D227C057AF00D208C7 /* Tests_iOS.swift in Sources */,
 				2CD73EC527C97837002EA94B /* PlotDataClass.swift in Sources */,
 				2CD73EBB27C97806002EA94B /* CorePlot.swift in Sources */,
@@ -424,7 +415,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CD2E4E027C057AF00D208C7 /* Tests_macOSLaunchTests.swift in Sources */,
-				2CD73ECB27C9784D002EA94B /* PlotView.swift in Sources */,
 				2CD2E4F827C057D400D208C7 /* DifferentialEquationSolver.swift in Sources */,
 				2CD2E4FC27C0604D00D208C7 /* Potential.swift in Sources */,
 				2CD73EBC27C97806002EA94B /* CorePlot.swift in Sources */,

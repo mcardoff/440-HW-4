@@ -30,14 +30,14 @@ class PlotDataClass: NSObject, ObservableObject {
         zeroData()
         
         //set the Plot Parameters
-        changingPlotParameters.yMax = 4.0
+        changingPlotParameters.yMax = 1.0
         changingPlotParameters.yMin = -1.0
-        changingPlotParameters.xMax = 4.0
-        changingPlotParameters.xMin = -1.0
+        changingPlotParameters.xMax = 2.0
+        changingPlotParameters.xMin = -0.1
         changingPlotParameters.xLabel = "x"
         changingPlotParameters.yLabel = "y"
         changingPlotParameters.lineColor = .red()
-        changingPlotParameters.title = "y = x"
+        changingPlotParameters.title = "Infinite Square Well"
         
     }
     

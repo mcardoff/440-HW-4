@@ -9,9 +9,19 @@ import SwiftUI
 
 @main
 struct Schrodinger_SolverApp: App {
+    
+    @StateObject var plotData = PlotClass()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabView {
+                // Main show
+                ContentView()
+                    .environmentObject(plotData)
+                
+                // Plots
+                
+            }
         }
     }
 }
