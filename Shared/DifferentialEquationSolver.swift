@@ -35,6 +35,7 @@ import Foundation
 
 typealias Potential = (_:Double) -> Double
 typealias InitialCondition = (psi: Double, psip: Double)
+typealias IterationFun = (_:Double, _:Double, _:Double) -> Double
 
 class SchrodingerSolver: NSObject, ObservableObject {
     
@@ -112,7 +113,7 @@ class SchrodingerSolver: NSObject, ObservableObject {
 //        var psi : [Double] = [ic.psi], psip : [Double] = [ic.psip],
         var xs : [Double] = [0.0]
         var psiCollection : [[Double]] = [], psipCollection : [[Double]] = []
-        let stepSize = a / steps
+        let stepSize = a / steps, h = stepSize
         var curPsi = ic.psi, curPsip = ic.psip
         var lastPointForBC : [(psi: Double, energy: Double)] = []
         var goodEnergyValues : [Double] = [], goodPsis : [[Double]] = []
@@ -124,9 +125,19 @@ class SchrodingerSolver: NSObject, ObservableObject {
                 // do n steps in total
                 if(firstTimeThrough) { xs.append(x) }
 //                let energyVal : Double =
-                let nextPsi  =  curPsi + stepSize * curPsip
-                let nextPsiP = curPsip + (stepSize * Schrod(x: x, mass: 1.0, hbar: 1.0, energy: energyVal, V: V) * curPsi)
+                let k0 = h * psiIter(psi: curPsi, psip: curPsip, xval: x)
+                let l0 = h * psiPrimeIter(psi: curPsi, psip: curPsip, xval: x, energy: energyVal, V: V)
+                let k1 = h * psiIter(psi: curPsi+(k0/2), psip: curPsip+(l0/2), xval: x+(h/2))
+                let l1 = h * psiPrimeIter(psi: curPsi+(k0/2), psip: curPsip+(l0/2), xval: x+(h/2), energy: energyVal, V: V)
                 
+                let k2 = h * psiIter(psi: curPsi+(k1/2), psip: curPsip+(l1/2), xval: x+(h/2))
+                let l2 = h * psiPrimeIter(psi: curPsi+(k1/2), psip: curPsip+(l1/2), xval: x+(h/2), energy: energyVal, V: V)
+                
+                let k3 = h * psiIter(psi: curPsi+h, psip: curPsip+h, xval: x+h)
+                let l3 = h * psiPrimeIter(psi: curPsi+h, psip: curPsip+h, xval: x+h, energy: energyVal, V: V)
+                
+                let nextPsi  =  curPsi + (k0 + 2*k1 + 2*k2 + k3)/6
+                let nextPsiP = curPsip + (l0 + 2*l1 + 2*l2 + l3)/6
                 
                 curPsi  = nextPsi
                 curPsip = nextPsiP
@@ -135,7 +146,7 @@ class SchrodingerSolver: NSObject, ObservableObject {
                 curPsipList.append(curPsip)
             }
             if(firstTimeThrough) { firstTimeThrough = false }
-            print("Adding to collection")
+//            print("Adding to collection")
             psiCollection.append(curPsiList)
             psipCollection.append(curPsipList)
             lastPointForBC.append((psi: curPsi, energy: energyVal))
@@ -159,6 +170,14 @@ class SchrodingerSolver: NSObject, ObservableObject {
         toPlotData(xvals: xVal, yvals: psiCollection)
 //        toDataCollection(xvals: xs, funVals: goodPsis)
         toEnergyFunc(vals: lastPointForBC)
+    }
+    
+    func psiIter(psi: Double, psip: Double, xval: Double) -> Double {
+        return psip
+    }
+    
+    func psiPrimeIter(psi: Double, psip: Double, xval: Double, energy: Double, V: Potential) -> Double {
+        return Schrod(x: xval, mass: 1.0, hbar: 1.0, energy: energy, V: V) * psi
     }
     
     func Schrod(x: Double, mass: Double, hbar: Double, energy: Double, V: Potential) -> Double {
