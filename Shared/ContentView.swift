@@ -21,7 +21,7 @@ struct ContentView: View {
                 .frame(width: 100)
                 .padding()
             
-            CorePlot(dataForPlot: $solver.zipped,
+            CorePlot(dataForPlot: $thingtoplot,
                      changingPlotParameters: $plotData.plotArray[0].changingPlotParameters)
                 .setPlotPadding(left: 10)
                 .setPlotPadding(right: 10)
@@ -33,7 +33,7 @@ struct ContentView: View {
         
     
     func calculate() {
-        solver.rk4Solve(a: 2, steps: 1000, V: {(_:Double) -> Double in return 0}, ic: (psi: 0, psip: 1))
+        solver.rk4Solve(a: 2, steps: 1000, Vf: squareWell(xMin: 0, xMax: 2, steps: 1000, height: 0.0), ic: (psi: 0, psip: 1))
     }
 }
 

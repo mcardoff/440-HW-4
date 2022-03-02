@@ -7,30 +7,37 @@
 
 import Foundation
 
+let MXVAL = 100000.0
+
 typealias CoordTuple = (x: Double, y: Double)
-typealias ddFunc = (_: Double) -> Double
 
-func generalWell(xMin: Double, xMax: Double, step: Double, f: ddFunc) -> [CoordTuple] {
-    var ret : [CoordTuple] = []
-    for xVal in stride(from: xMin+step, to: xMax-step, by: step) {
-        ret.append((x: xVal, y: f(xVal)))
+func generalWell(xMin: Double, xMax: Double, steps: Int, f: PotentialFunc) -> PotentialList {
+    var x: [Double] = [xMin], V : [Double] = [MXVAL] // start with really high value, should be infinite
+    
+    let stepSize = (xMax - xMin) / Double(steps)
+    for xVal in stride(from: xMin+stepSize, to: xMax-stepSize, by: stepSize) {
+        x.append(xVal)
+        V.append(f(xVal))
     }
-    return ret
+    
+    x.append(xMax)
+    V.append(MXVAL)
+    return (xs: x, Vs: V)
 }
 
-func squareWell(xMin: Double, xMax: Double, step: Double, height: Double) -> [CoordTuple] {
-    return generalWell(xMin: xMin, xMax: xMax, step: step, f: {(_:Double) -> Double in return height})
+func squareWell(xMin: Double, xMax: Double, steps: Int, height: Double) -> PotentialList {
+    return generalWell(xMin: xMin, xMax: xMax, steps: steps, f: {(_:Double) -> Double in return height})
 }
 
-func linearWell(xMin: Double, xMax: Double, step: Double, slope: Double) -> [CoordTuple] {
-    return generalWell(xMin: xMin, xMax: xMax, step: step, f: {(x:Double) -> Double in return slope * x})
+func linearWell(xMin: Double, xMax: Double, steps: Int, slope: Double) -> PotentialList {
+    return generalWell(xMin: xMin, xMax: xMax, steps: steps, f: {(x:Double) -> Double in return slope * x})
 }
 
-func quadraticWell(xMin: Double, xMax: Double, step: Double, amplitude: Double) -> [CoordTuple] {
-    return generalWell(xMin: xMin, xMax: xMax, step: step, f: {(x:Double) -> Double in return amplitude * x * x})
+func quadraticWell(xMin: Double, xMax: Double, steps: Int, amplitude: Double) -> PotentialList {
+    return generalWell(xMin: xMin, xMax: xMax, steps: steps, f: {(x:Double) -> Double in return amplitude * x * x})
 }
 
-func squareBarrier(xMin: Double, xMax: Double, step: Double, amplitude: Double) -> [CoordTuple] {
+func squareBarrier(xMin: Double, xMax: Double, steps: Int, amplitude: Double) -> PotentialList {
     func squareBarrier(x: Double) -> Double {
         if (x > 0.4*xMax && (x < 0.6*xMax)) {
             return amplitude
@@ -39,10 +46,10 @@ func squareBarrier(xMin: Double, xMax: Double, step: Double, amplitude: Double) 
         }
     }
     
-    return generalWell(xMin: xMin, xMax: xMax, step: step, f: squareBarrier)
+    return generalWell(xMin: xMin, xMax: xMax, steps: steps, f: squareBarrier)
 }
 
-func triangleBarrier(xMin: Double, xMax: Double, step: Double, amplitude: Double) -> [CoordTuple] {
+func triangleBarrier(xMin: Double, xMax: Double, steps: Int, amplitude: Double) -> PotentialList {
     func triangleBarrier(x: Double) -> Double {
         if (x > 0.4*xMax && (x < xMax / 2.0)) {
             return amplitude * x
@@ -53,5 +60,5 @@ func triangleBarrier(xMin: Double, xMax: Double, step: Double, amplitude: Double
         }
     }
     
-    return generalWell(xMin: xMin, xMax: xMax, step: step, f: triangleBarrier)
+    return generalWell(xMin: xMin, xMax: xMax, steps: steps, f: triangleBarrier)
 }
