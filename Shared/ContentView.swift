@@ -14,14 +14,21 @@ struct ContentView: View {
     
     @EnvironmentObject var plotData : PlotClass
     @ObservedObject var solver = SchrodingerSolver()
+    @State var selector = 0
     
     var body: some View {
         HStack {
-            Button("Solve", action: self.calculate)
-                .frame(width: 100)
-                .padding()
-
-            CorePlot(dataForPlot: $solver.goodFuncToPlot,
+            VStack {
+                Button("Solve", action: self.calculate)
+                    .frame(width: 100)
+                    .padding()
+                
+                Button("iter", action: self.iteratesel)
+                    .frame(width: 100)
+                    .padding()
+            }
+            
+            CorePlot(dataForPlot: $solver.totalFuncToPlot[selector],
                      changingPlotParameters: $plotData.plotArray[0].changingPlotParameters)
                 .setPlotPadding(left: 10)
                 .setPlotPadding(right: 10)
@@ -31,6 +38,14 @@ struct ContentView: View {
         }
     }
         
+    
+    func iteratesel() {
+        if selector < 4 {
+            selector += 1
+        } else {
+            selector = 0
+        }
+    }
     
     func calculate() {
         let a = 2.0

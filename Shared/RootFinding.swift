@@ -7,31 +7,32 @@
 
 import Foundation
 
-//    func bisectionRootFinding(energyFunctional: [Double], leftGuess: Int, rightGuess: Int, tol: Double) -> Int{
-//        var zeroVal = 1.0, nStep = 1
-//        var leftVal = leftGuess, rightVal = rightGuess
+func bisectionRootFinding(energyFunctional: [Double], leftGuess: Int, rightGuess: Int, tol: Double) -> Int {
+//    var zeroVal = 1.0, nStep = 1
+//    var leftVal = leftGuess, rightVal = rightGuess
 //
-//        assert(leftGuess > rightGuess)
-//        while(abs(zeroVal) > tol) {
-//            nStep += 1
-//            let leftFunVal = energyFunctional[leftVal]
-//            let rightFunVal = energyFunctional[rightVal]
-//            let mid = (leftVal + rightVal) / 2
-//            switch (sign(x : leftFunVal * zeroVal)) {
-//            case 1:
-//                leftVal = mid
-//                break
-//            case -1:
-//                rightVal = mid
-//                break
-//            case 0:
-//                rootidx = mid
-//                break
-//            default:
-//                exit(123)
-//            }
+//    assert(leftGuess > rightGuess)
+//    while(abs(zeroVal) > tol) {
+//        nStep += 1
+//        let leftFunVal = energyFunctional[leftVal]
+//        let rightFunVal = energyFunctional[rightVal]
+//        let mid = (leftVal + rightVal) / 2
+//        switch (sign(x : leftFunVal * zeroVal)) {
+//        case 1:
+//            leftVal = mid
+//            break
+//        case -1:
+//            rightVal = mid
+//            break
+//        case 0:
+//            let rootidx = mid
+//            break
+//        default:
+//            exit(123)
 //        }
 //    }
+    return 0
+}
 
 
 /// sign:

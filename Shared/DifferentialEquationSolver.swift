@@ -95,22 +95,26 @@ class SchrodingerSolver: NSObject, ObservableObject {
             curPsi = ic.psi
             curPsip = ic.psip
             
-            // check for sign change in psiLast
+            // check for sign change in psiLast...
+            // find two close vals that have a change in sign
 
         }
 
-        var energyFunc :[(psi: Double, energy: Double)] = []
-        for i in 0..<lastPointForBC.count {
+        var energyFunc : [(psi: Double, energy: Double)] = []
+        for i in 0..<lastPointForBC.count { //
             let energyVal = lastPointForBC[i].energy
             let psiVal = lastPointForBC[i].psi
             if (abs(psiVal) < precision) {
                 goodEnergyValues.append(energyVal)
                 goodPsis.append(psiCollection[i])
             }
+            
+            
+            
             energyFunc.append((psi: psiVal, energy: energyVal))
         }
         
-        toPlotData(xvals: xs, yvals: psiCollection.last!)
+        toPlotData(xvals: xs, yvals: psiCollection)
         fillPotentialPlot(potential: Vf)
         fillEnergyFunc(vals: energyFunc)
     }
@@ -134,7 +138,6 @@ class SchrodingerSolver: NSObject, ObservableObject {
         
         rknSolve(a: a, steps: steps, Vf: Vf, ic: ic, iterfunc: euler)
     }
-    
     
     /// rk4Solve:
     /// Solve the 1D Schrodinger Equation using rk4
@@ -163,6 +166,10 @@ class SchrodingerSolver: NSObject, ObservableObject {
         }
         
         rknSolve(a: a, steps: steps, Vf: Vf, ic: ic, iterfunc: rk4)
+        
+        if(self.totalFuncToPlot.isEmpty) {
+            print("EMPTY")
+        }
     }
     
     /// psiIter
@@ -194,19 +201,19 @@ class SchrodingerSolver: NSObject, ObservableObject {
     }
     
     func toPlotData(xvals: [Double], yvals: [[Double]]) {
+        totalFuncToPlot = []
         for vals in yvals {
             var tempList : [plotDataType] = []
             for (x,y) in zip(xvals, vals) {
                 tempList.append([.X: x, .Y: y])
+                goodFuncToPlot.append([.X: x, .Y: y])
             }
             totalFuncToPlot.append(tempList)
         }
     }
     
     func fillEnergyFunc(vals: [(psi: Double, energy: Double)]) {
-//        assert((xvals.count == yvals.count) && yvals.count > 0)
         for (psi, energy) in vals {
-//            let x = tup.energy, y = tup.psi
             energyFunctional.append([.X: energy, .Y: psi])
         }
     }
