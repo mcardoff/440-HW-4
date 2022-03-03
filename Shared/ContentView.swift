@@ -34,7 +34,7 @@ struct ContentView: View {
     
     func calculate() {
         let a = 2.0
-        solver.eulerSolve(a: a, steps: 1000, Vf: squareWell(xMin: 0, xMax: a, steps: 1000, height: 0.0), ic: (psi: 0, psip: 1))
+        solver.rk4Solve(a: a, steps: 1000, Vf: squareWell(xMin: 0, xMax: a, steps: 1000, height: 0.0), ic: (psi: 0, psip: 1))
     }
 }
 

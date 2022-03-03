@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		2C2668D627C976CD00EB13E7 /* CorePlot in Frameworks */ = {isa = PBXBuildFile; productRef = 2C2668D527C976CD00EB13E7 /* CorePlot */; };
+		2CB3CF6B27D0900E00761FDF /* RootFinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3CF6A27D0900E00761FDF /* RootFinding.swift */; };
+		2CB3CF6C27D0900E00761FDF /* RootFinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3CF6A27D0900E00761FDF /* RootFinding.swift */; };
+		2CB3CF6D27D0900E00761FDF /* RootFinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3CF6A27D0900E00761FDF /* RootFinding.swift */; };
+		2CB3CF6E27D0900E00761FDF /* RootFinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3CF6A27D0900E00761FDF /* RootFinding.swift */; };
 		2CD2E4D227C057AF00D208C7 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2E4D127C057AF00D208C7 /* Tests_iOS.swift */; };
 		2CD2E4D427C057AF00D208C7 /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2E4D327C057AF00D208C7 /* Tests_iOSLaunchTests.swift */; };
 		2CD2E4DE27C057AF00D208C7 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2E4DD27C057AF00D208C7 /* Tests_macOS.swift */; };
@@ -65,6 +69,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2CB3CF6A27D0900E00761FDF /* RootFinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootFinding.swift; sourceTree = "<group>"; };
 		2CD2E4B927C057AD00D208C7 /* Schrodinger_SolverApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schrodinger_SolverApp.swift; sourceTree = "<group>"; };
 		2CD2E4BA27C057AD00D208C7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2CD2E4BB27C057AE00D208C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -139,6 +144,7 @@
 				2CD2E4B927C057AD00D208C7 /* Schrodinger_SolverApp.swift */,
 				2CD2E4BA27C057AD00D208C7 /* ContentView.swift */,
 				2CD2E4F527C057D400D208C7 /* DifferentialEquationSolver.swift */,
+				2CB3CF6A27D0900E00761FDF /* RootFinding.swift */,
 				2CD2E4F927C0604D00D208C7 /* Potential.swift */,
 				2CD2E4BB27C057AE00D208C7 /* Assets.xcassets */,
 			);
@@ -371,6 +377,7 @@
 				2CD2E4E327C057AF00D208C7 /* ContentView.swift in Sources */,
 				2CD2E4F627C057D400D208C7 /* DifferentialEquationSolver.swift in Sources */,
 				2CD2E4FA27C0604D00D208C7 /* Potential.swift in Sources */,
+				2CB3CF6B27D0900E00761FDF /* RootFinding.swift in Sources */,
 				2CD73EB927C97806002EA94B /* CorePlot.swift in Sources */,
 				2CD73EC327C97837002EA94B /* PlotDataClass.swift in Sources */,
 				2CD73EAC27C97716002EA94B /* CalculatePlotData.swift in Sources */,
@@ -387,6 +394,7 @@
 				2CD2E4E427C057AF00D208C7 /* ContentView.swift in Sources */,
 				2CD2E4F727C057D400D208C7 /* DifferentialEquationSolver.swift in Sources */,
 				2CD2E4FB27C0604D00D208C7 /* Potential.swift in Sources */,
+				2CB3CF6C27D0900E00761FDF /* RootFinding.swift in Sources */,
 				2CD73EBA27C97806002EA94B /* CorePlot.swift in Sources */,
 				2CD73EC427C97837002EA94B /* PlotDataClass.swift in Sources */,
 				2CD73EAD27C97716002EA94B /* CalculatePlotData.swift in Sources */,
@@ -407,6 +415,7 @@
 				2CD73EC527C97837002EA94B /* PlotDataClass.swift in Sources */,
 				2CD73EBB27C97806002EA94B /* CorePlot.swift in Sources */,
 				2CD73EC027C9781F002EA94B /* PlotClass.swift in Sources */,
+				2CB3CF6D27D0900E00761FDF /* RootFinding.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,6 +426,7 @@
 				2CD2E4E027C057AF00D208C7 /* Tests_macOSLaunchTests.swift in Sources */,
 				2CD2E4F827C057D400D208C7 /* DifferentialEquationSolver.swift in Sources */,
 				2CD2E4FC27C0604D00D208C7 /* Potential.swift in Sources */,
+				2CB3CF6E27D0900E00761FDF /* RootFinding.swift in Sources */,
 				2CD73EBC27C97806002EA94B /* CorePlot.swift in Sources */,
 				2CD73EC627C97837002EA94B /* PlotDataClass.swift in Sources */,
 				2CD73EAF27C97716002EA94B /* CalculatePlotData.swift in Sources */,
