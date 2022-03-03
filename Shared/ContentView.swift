@@ -21,7 +21,7 @@ struct ContentView: View {
                 .frame(width: 100)
                 .padding()
 
-            CorePlot(dataForPlot: $solver.energyFunctional,
+            CorePlot(dataForPlot: $solver.goodFuncToPlot,
                      changingPlotParameters: $plotData.plotArray[0].changingPlotParameters)
                 .setPlotPadding(left: 10)
                 .setPlotPadding(right: 10)
@@ -34,7 +34,7 @@ struct ContentView: View {
     
     func calculate() {
         let a = 2.0
-        solver.rk4Solve(a: a, steps: 1000, Vf: squareWell(xMin: 0, xMax: a, steps: 1000, height: 0.0), ic: (psi: 0, psip: 1))
+        solver.eulerSolve(a: a, steps: 1000, Vf: squareWell(xMin: 0, xMax: a, steps: 1000, height: 0.0), ic: (psi: 0, psip: 1))
     }
 }
 

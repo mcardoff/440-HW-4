@@ -40,9 +40,6 @@ typealias IterationFun = (_:Double, _:Double, _:Double) -> Double
 
 class SchrodingerSolver: NSObject, ObservableObject {
     
-    @Published var psiVal : [Double] = []
-    @Published var psipVal : [Double] = []
-    @Published var xVal : [Double] = []
     @Published var goodFuncToPlot : [plotDataType] = []
     @Published var energyFunctional : [plotDataType] = []
     @Published var potentialPlot : [plotDataType] = []
@@ -71,14 +68,19 @@ class SchrodingerSolver: NSObject, ObservableObject {
         var lastPointForBC : [(psi: Double, energy: Double)] = []
         var goodEnergyValues : [Double] = [], goodPsis : [[Double]] = []
         
-        for energyVal in stride(from: 0, to: 10, by: 0.25) {
+        for energyVal in stride(from: 0, to: 1.25, by: 0.25) {
             var curPsiList = [ic.psi]
             var curPsipList = [ic.psip]
             for i in 1..<xs.count {
                 // do n steps in total
                 let V = vs[i], x = xs[i]
-                let nextPsi  =  curPsi + h * curPsip
-                let nextPsiP = curPsip + (h * Schrod(x: x, mass: 1.0, hbar: 1.0, energy: energyVal, V: V) * curPsi)
+                
+                let k0 = h * psiIter(psi: curPsi, psip: curPsip, xval: x),
+                    l0 = h * psiPrimeIter(psi: curPsi, psip: curPsip, xval: x, energy: energyVal, V: V)
+                
+                let nextPsi  =  curPsi + k0
+                let nextPsiP = curPsip + l0
+                
                 curPsi  = nextPsi
                 curPsip = nextPsiP
                 
@@ -88,6 +90,10 @@ class SchrodingerSolver: NSObject, ObservableObject {
             psiCollection.append(curPsiList)
             psipCollection.append(curPsipList)
             lastPointForBC.append((psi: curPsi, energy: energyVal))
+            
+            // reset the state dumbass
+            curPsi = ic.psi
+            curPsip = ic.psip
         }
         
         for i in 0..<lastPointForBC.count {
@@ -99,9 +105,7 @@ class SchrodingerSolver: NSObject, ObservableObject {
             }
         }
         
-        psiVal.append(contentsOf: psiCollection[4])
-        xVal.append(contentsOf: xs)
-        toPlotData(xvals: xVal, yvals: psiCollection)
+        toPlotData(xvals: xs, yvals: psiCollection.last!)
         
 //        toDataCollection(xvals: xs, funVals: goodPsis)
 //        toEnergyFunc(vals: lastPointForBC)
@@ -130,8 +134,8 @@ class SchrodingerSolver: NSObject, ObservableObject {
         var lastPointForBC : [(psi: Double, energy: Double)] = []
         var goodEnergyValues : [Double] = [], goodPsis : [[Double]] = []
         
-        for energyVal in stride(from: 0, to: 5, by: 0.2) {
-//        let energyVal = 4.0 * 1.23
+        for energyVal in stride(from: 1.0, to: 1.5, by: 0.1) {
+//        let energyVal = Double.pi*Double.pi / 8
             var curPsiList = [ic.psi], curPsipList = [ic.psip]
             for i in 1..<xs.count {
                 let V = vs[i], x = xs[i]
@@ -168,21 +172,22 @@ class SchrodingerSolver: NSObject, ObservableObject {
         
 //        print(curPsiList)
         
-        // Boundary Condition is that psi(a) = 0 at the correct energy
-        var energyFunc :[(psi: Double, energy: Double)] = []
-        for i in 0..<lastPointForBC.count {
-            let energyVal = lastPointForBC[i].energy
-            let psiVal = lastPointForBC[i].psi
-            if (abs(psiVal) < 0.1) {
-                goodEnergyValues.append(energyVal)
-                goodPsis.append(psiCollection[i])
-            }
-            energyFunc.append((psi: psiVal, energy: energyVal))
-        }
+//        // Boundary Condition is that psi(a) = 0 at the correct energy
+//        var energyFunc :[(psi: Double, energy: Double)] = []
+//        for i in 0..<lastPointForBC.count {
+//            let energyVal = lastPointForBC[i].energy
+//            let psiVal = lastPointForBC[i].psi
+//            if (abs(psiVal) < 0.1) {
+//                goodEnergyValues.append(energyVal)
+//                goodPsis.append(psiCollection[i])
+//            }
+//            energyFunc.append((psi: psiVal, energy: energyVal))
+//        }
         
-        toPlotData(xvals: xs, yvals: psiCollection[6])
+        toPlotData(xvals: xs, yvals: psiCollection.last!)
+        print(vs)
         fillPotentialPlot(potential: Vf)
-        fillEnergyFunc(vals: energyFunc)
+//        fillEnergyFunc(vals: energyFunc)
     }
     
 //    func bisectionRootFinding(energyFunctional: [Double], leftGuess: Int, rightGuess: Int, tol: Double) -> Int{
