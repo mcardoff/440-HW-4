@@ -49,7 +49,9 @@ struct ContentView: View {
     
     func calculate() {
         let a = 2.0
-        solver.boundaryValProblem(a: a, steps: 1000, Vf: squareWell(xMin: 0, xMax: a, steps: 1000, height: 0.0), ic: (psi: 0, psip: 1))
+        let ic : InitialCondition = (psi: 0, psip: 1)
+        let V = squareWell(xMin: 0, xMax: a, steps: 1000, height: 0.0)
+        solver.boundaryValProblem(a: a, steps: 1000, Vf: V, ic: ic)
     }
 }
 
