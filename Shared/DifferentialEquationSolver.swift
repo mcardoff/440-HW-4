@@ -54,7 +54,7 @@ class SchrodingerSolver: NSObject, ObservableObject {
         var energyFunc : [(psi: Double, energy: Double)] = []
         
         // output from rknSolve
-        let lastPointForBC : [(psi: Double, energy: Double)] = rk4Solve(a: a, steps: steps, Vf: Vf, ic: ic, eMin: 1.0, eMax: 1.5, eStride: 0.05)
+        let lastPointForBC : [(psi: Double, energy: Double)] = rk4Solve(a: a, steps: steps, Vf: Vf, ic: ic, eMin: 1.0, eMax: 12, eStride: 0.04)
         
         
         var prevEnergy : Double = 0.0, prevPsi = 0.0
