@@ -46,6 +46,33 @@ class SchrodingerSolver: NSObject, ObservableObject {
     @Published var energyFunctional : [plotDataType] = []
     @Published var potentialPlot : [plotDataType] = []
     
+    func boundaryValProblem(_ lastPointForBC: inout [(psi: Double, energy: Double)], _ xs: [Double], _ psiCollection: [[Double]], _ Vf: PotentialList) {
+        // Maybe end RK here, extract next stuff to BVP function
+        
+        var energyFunc : [(psi: Double, energy: Double)] = []
+        var prevEnergy : Double = 0
+        for i in 0..<lastPointForBC.count { //
+            let energyVal = lastPointForBC[i].energy
+            let psiVal = lastPointForBC[i].psi
+            //            if (abs(psiVal) < precision) {
+            //                goodEnergyValues.append(energyVal)
+            //                goodPsis.append(psiCollection[i])
+            //            }
+            if prevEnergy * energyVal < 0.0 {
+                // sign change detected!
+                // get a new value for the energy or at least create en
+            }
+            
+            prevEnergy = energyVal
+            
+            energyFunc.append((psi: psiVal, energy: energyVal))
+        }
+        
+        toPlotData(xvals: xs, yvals: psiCollection)
+        fillPotentialPlot(potential: Vf)
+        fillEnergyFunc(vals: energyFunc)
+    }
+    
     /// rknSolve:
     /// Solve the 1D Schrodinger Equation using any function
     /// - Parameters:
@@ -99,24 +126,7 @@ class SchrodingerSolver: NSObject, ObservableObject {
             // find two close vals that have a change in sign
 
         }
-
-        var energyFunc : [(psi: Double, energy: Double)] = []
-        for i in 0..<lastPointForBC.count { //
-            let energyVal = lastPointForBC[i].energy
-            let psiVal = lastPointForBC[i].psi
-            if (abs(psiVal) < precision) {
-                goodEnergyValues.append(energyVal)
-                goodPsis.append(psiCollection[i])
-            }
-            
-            
-            
-            energyFunc.append((psi: psiVal, energy: energyVal))
-        }
-        
-        toPlotData(xvals: xs, yvals: psiCollection)
-        fillPotentialPlot(potential: Vf)
-        fillEnergyFunc(vals: energyFunc)
+        boundaryValProblem(&lastPointForBC, xs, psiCollection, Vf)
     }
     
     /// eulerSolve:
