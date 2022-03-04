@@ -45,32 +45,93 @@ class SchrodingerSolver: NSObject, ObservableObject {
     @Published var totalFuncToPlot : [[plotDataType]] = [[[.X:0.0, .Y:0.0]]]
     @Published var energyFunctional : [plotDataType] = []
     @Published var potentialPlot : [plotDataType] = []
+    var energyEigenValues : [Double] = []
     
-    func boundaryValProblem(_ lastPointForBC: inout [(psi: Double, energy: Double)], _ xs: [Double], _ psiCollection: [[Double]], _ Vf: PotentialList) {
-        // Maybe end RK here, extract next stuff to BVP function
-        
+    func boundaryValProblem(a: Double, steps: Int, Vf: PotentialList, ic: InitialCondition) {
+        let precision = 1e-3
+        // these will have the good energy eigenvalues and the functions as well:
+        var goodEnergyPsiCollection : [[Double]] = [], goodEnergyValCollection : [Double] = []
         var energyFunc : [(psi: Double, energy: Double)] = []
-        var prevEnergy : Double = 0
-        for i in 0..<lastPointForBC.count { //
-            let energyVal = lastPointForBC[i].energy
-            let psiVal = lastPointForBC[i].psi
-            //            if (abs(psiVal) < precision) {
-            //                goodEnergyValues.append(energyVal)
-            //                goodPsis.append(psiCollection[i])
-            //            }
-            if prevEnergy * energyVal < 0.0 {
+        
+        // output from rknSolve
+        let lastPointForBC : [(psi: Double, energy: Double)] = rk4Solve(a: a, steps: steps, Vf: Vf, ic: ic, eMin: 1.0, eMax: 1.5, eStride: 0.05)
+        
+        
+        var prevEnergy : Double = 0.0, prevPsi = 0.0
+        for tup in lastPointForBC {
+            let energyVal = tup.energy
+            let psiVal = tup.psi
+            
+            // check sign of fucntion output dumbass
+            if (prevPsi.sign != psiVal.sign) {
                 // sign change detected!
-                // get a new value for the energy or at least create en
+                // find energy value between energyVal and prevEnergy
+                var checkedPsi = psiVal
+                // recalculate the value of the functional with this energy
+                var leftVal = prevEnergy, rightVal = energyVal
+                var midEnergyVal = 0.0
+                var possibleAnswer : (totalPsi: [Double], lastVal: Double) = (totalPsi: [], -12.6)
+                while(abs(checkedPsi) > precision) {
+                    print("Current psi val: \(checkedPsi)")
+                    print("Current Energy interval: [\(leftVal), \(rightVal)]")
+                    
+                    midEnergyVal = (leftVal + rightVal) / 2.0
+                    possibleAnswer = rknSingleEigenVal(a: a, steps: steps, energyVal: midEnergyVal, Vf: Vf, ic: ic, iterfunc: rk4)
+                    let possibleZero = possibleAnswer.lastVal
+                    
+                    // check sign change between possibleZero and checkedVal
+                    if (checkedPsi * possibleZero > 0) { // positive, same sign, zero not in this interval
+                        leftVal = midEnergyVal
+                    } else if (checkedPsi * possibleZero < 0) { // negative, sign change in this interval
+                        rightVal = midEnergyVal
+                    } else if (checkedPsi * possibleZero == 0) {
+                        
+                    } else { // something went wrong
+                        exit(1001)
+                    }
+                    
+                    checkedPsi = possibleZero
+                    energyFunc.append((psi: possibleZero, midEnergyVal))
+                }
+                // now the value is in a good range
+                if(!possibleAnswer.totalPsi.isEmpty) {
+                    goodEnergyPsiCollection.append(possibleAnswer.totalPsi)
+                }
             }
             
             prevEnergy = energyVal
-            
+            prevPsi = psiVal
             energyFunc.append((psi: psiVal, energy: energyVal))
         }
-        
-        toPlotData(xvals: xs, yvals: psiCollection)
+        if(goodEnergyPsiCollection.isEmpty) {
+            print("EMPTY")
+        }
+        toPlotData(xvals: Vf.xs, yvals: goodEnergyPsiCollection)
+        energyEigenValues.append(contentsOf: goodEnergyValCollection)
         fillPotentialPlot(potential: Vf)
         fillEnergyFunc(vals: energyFunc)
+    }
+    
+    func rknSingleEigenVal(a: Double, steps: Int, energyVal: Double, Vf: PotentialList, ic: InitialCondition, iterfunc: Iterfunctype) -> (totalPsi: [Double], lastVal: Double) {
+        print("In Single boi")
+        let xs : [Double] = Vf.xs, vs : [Double] = Vf.Vs
+        let stepSize = a / Double(steps), h = stepSize
+        var curPsi = ic.psi, curPsip = ic.psip
+        var psiList : [Double] = []
+        for (x,V) in zip(xs, vs) {
+//            let V = vs[i], x = xs[i]
+            
+            let deltatup : PhaseSpacePt = iterfunc(h, curPsi, curPsip, x, energyVal, V)
+            
+            let nextPsi = curPsi + deltatup.psi,
+                nextPsiP = curPsip + deltatup.psip
+            
+            curPsi  = nextPsi
+            curPsip = nextPsiP
+            
+            psiList.append(curPsi)
+        }
+        return (totalPsi: psiList, lastVal: curPsi)
     }
     
     /// rknSolve:
@@ -80,24 +141,20 @@ class SchrodingerSolver: NSObject, ObservableObject {
     ///   - steps: number of points to put in between 0,a
     ///   - Vf: Potential to solve for
     ///   - ic: Initial Condition
-    func rknSolve(a: Double, steps: Double, Vf: PotentialList, ic: InitialCondition, iterfunc: Iterfunctype) {
-        let precision = 1e-3
-        
-        //things to return
-        let xs : [Double] = Vf.xs
-        let vs : [Double] = Vf.Vs
-        let stepSize = a / steps, h = stepSize
+    func rknSolve(a: Double, steps: Int, Vf: PotentialList, ic: InitialCondition, iterfunc: Iterfunctype,
+                  eMin: Double, eMax: Double, eStride: Double) -> [(psi: Double, energy: Double)] {
+        // Important for the iteration
+        let xs : [Double] = Vf.xs, vs : [Double] = Vf.Vs
+        let stepSize = a / Double(steps), h = stepSize
         var psiCollection : [[Double]] = [], psipCollection : [[Double]] = []
-        
-        // iteration values
         var curPsi = ic.psi, curPsip = ic.psip
         
         // root finding
         var lastPointForBC : [(psi: Double, energy: Double)] = []
-        var goodEnergyValues : [Double] = [], goodPsis : [[Double]] = []
         
-        for energyVal in stride(from: 1.0, to: 1.5, by: 0.1) {
+        for energyVal in stride(from: eMin, to: eMax, by: eStride) {
 //        let energyVal = Double.pi*Double.pi / 8
+//            print(energyVal)
             var curPsiList = [ic.psi], curPsipList = [ic.psip]
             for i in 1..<xs.count {
                 let V = vs[i], x = xs[i]
@@ -121,12 +178,10 @@ class SchrodingerSolver: NSObject, ObservableObject {
             // reset the state dumbass
             curPsi = ic.psi
             curPsip = ic.psip
-            
-            // check for sign change in psiLast...
-            // find two close vals that have a change in sign
 
         }
-        boundaryValProblem(&lastPointForBC, xs, psiCollection, Vf)
+        
+        return lastPointForBC
     }
     
     /// eulerSolve:
@@ -136,7 +191,8 @@ class SchrodingerSolver: NSObject, ObservableObject {
     ///   - steps: number of points to put in between 0,a
     ///   - Vf: Potential to solve for
     ///   - ic: Initial Condition
-    func eulerSolve(a: Double, steps: Double, Vf: PotentialList, ic: InitialCondition) {
+    func eulerSolve(a: Double, steps: Int, Vf: PotentialList, ic: InitialCondition,
+                    eMin: Double, eMax: Double, eStride: Double) -> [(psi: Double, energy: Double)] {
         /// euler
         /// Matching iterfunc for the parent function
         func euler(h: Double, psi: Double, psip: Double, x: Double, energy: Double, V: Double) -> PhaseSpacePt {
@@ -146,7 +202,7 @@ class SchrodingerSolver: NSObject, ObservableObject {
             return (psi: k0, psip: l0)
         }
         
-        rknSolve(a: a, steps: steps, Vf: Vf, ic: ic, iterfunc: euler)
+        return rknSolve(a: a, steps: steps, Vf: Vf, ic: ic, iterfunc: euler, eMin: eMin, eMax: eMax, eStride: eStride)
     }
     
     /// rk4Solve:
@@ -156,30 +212,27 @@ class SchrodingerSolver: NSObject, ObservableObject {
     ///   - steps: number of points to put in between 0,a
     ///   - Vf: Potential to solve for
     ///   - ic: Initial Condition
-    func rk4Solve(a: Double, steps: Double, Vf: PotentialList, ic: InitialCondition) {
-        /// rk4
-        /// Matching iterfunc for the above function
-        func rk4(h: Double, psi: Double, psip: Double, x: Double, energy: Double, V: Double) -> PhaseSpacePt {
-            let k0 = h * psiIter(psi: psi, psip: psip, xval: x),
-                l0 = h * psiPrimeIter(psi: psi, psip: psip, xval: x, energy: energy, V: V)
-            
-            let k1 = h * psiIter(psi: psi+(k0/2), psip: psip+(l0/2), xval: x+(h/2)),
-                l1 = h * psiPrimeIter(psi: psi+(k0/2), psip: psip+(l0/2), xval: x+(h/2), energy: energy, V: V)
-            
-            let k2 = h * psiIter(psi: psi+(k1/2), psip: psip+(l1/2), xval: x+(h/2)),
-                l2 = h * psiPrimeIter(psi: psi+(k1/2), psip: psip+(l1/2), xval: x+(h/2), energy: energy, V: V)
-            
-            let k3 = h * psiIter(psi: psi+h, psip: psip+h, xval: x+h),
-                l3 = h * psiPrimeIter(psi: psi+h, psip: psip+h, xval: x+h, energy: energy, V: V)
-            
-            return (psi: (k0 + 2*k1 + 2*k2 + k3)/6, psip: (l0 + 2*l1 + 2*l2 + l3)/6)
-        }
+    func rk4Solve(a: Double, steps: Int, Vf: PotentialList, ic: InitialCondition,
+                  eMin: Double, eMax: Double, eStride: Double) -> [(psi: Double, energy: Double)] {
+        return rknSolve(a: a, steps: steps, Vf: Vf, ic: ic, iterfunc: rk4, eMin: eMin, eMax: eMax, eStride: eStride)
+    }
+    
+    /// rk4
+    /// Matching iterfunc for the above function
+    func rk4(h: Double, psi: Double, psip: Double, x: Double, energy: Double, V: Double) -> PhaseSpacePt {
+        let k0 = h * psiIter(psi: psi, psip: psip, xval: x),
+            l0 = h * psiPrimeIter(psi: psi, psip: psip, xval: x, energy: energy, V: V)
         
-        rknSolve(a: a, steps: steps, Vf: Vf, ic: ic, iterfunc: rk4)
+        let k1 = h * psiIter(psi: psi+(k0/2), psip: psip+(l0/2), xval: x+(h/2)),
+            l1 = h * psiPrimeIter(psi: psi+(k0/2), psip: psip+(l0/2), xval: x+(h/2), energy: energy, V: V)
         
-        if(self.totalFuncToPlot.isEmpty) {
-            print("EMPTY")
-        }
+        let k2 = h * psiIter(psi: psi+(k1/2), psip: psip+(l1/2), xval: x+(h/2)),
+            l2 = h * psiPrimeIter(psi: psi+(k1/2), psip: psip+(l1/2), xval: x+(h/2), energy: energy, V: V)
+        
+        let k3 = h * psiIter(psi: psi+h, psip: psip+h, xval: x+h),
+            l3 = h * psiPrimeIter(psi: psi+h, psip: psip+h, xval: x+h, energy: energy, V: V)
+        
+        return (psi: (k0 + 2*k1 + 2*k2 + k3)/6, psip: (l0 + 2*l1 + 2*l2 + l3)/6)
     }
     
     /// psiIter

@@ -40,7 +40,7 @@ struct ContentView: View {
         
     
     func iteratesel() {
-        if selector < 4 {
+        if selector < $solver.totalFuncToPlot.count - 1 {
             selector += 1
         } else {
             selector = 0
@@ -49,7 +49,7 @@ struct ContentView: View {
     
     func calculate() {
         let a = 2.0
-        solver.rk4Solve(a: a, steps: 1000, Vf: squareWell(xMin: 0, xMax: a, steps: 1000, height: 0.0), ic: (psi: 0, psip: 1))
+        solver.boundaryValProblem(a: a, steps: 1000, Vf: squareWell(xMin: 0, xMax: a, steps: 1000, height: 0.0), ic: (psi: 0, psip: 1))
     }
 }
 
