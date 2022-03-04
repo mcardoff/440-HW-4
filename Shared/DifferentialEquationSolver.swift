@@ -71,25 +71,30 @@ class SchrodingerSolver: NSObject, ObservableObject {
                 var leftVal = prevEnergy, rightVal = energyVal
                 var midEnergyVal = 0.0
                 var possibleAnswer : (totalPsi: [Double], lastVal: Double) = (totalPsi: [], -12.6)
-                while(abs(checkedPsi) > precision) {
+                while(abs(checkedPsi - prevPsi) > precision) {
                     print("Current psi val: \(checkedPsi)")
-                    print("Current Energy interval: [\(leftVal), \(rightVal)]")
-                    
-                    midEnergyVal = (leftVal + rightVal) / 2.0
+                    print(String( format: "Current Energy interval: [%0.16f, %0.16f]", leftVal, rightVal))
+//                    midEnergyVal = rightVal - checkedPsi * (rightVal - rightVal) / (checkedPsi - prevPsi)
+                    midEnergyVal = (rightVal + leftVal) / 2.0
                     possibleAnswer = rknSingleEigenVal(a: a, steps: steps, energyVal: midEnergyVal, Vf: Vf, ic: ic, iterfunc: rk4)
                     let possibleZero = possibleAnswer.lastVal
                     
                     // check sign change between possibleZero and checkedVal
+                    
                     if (checkedPsi * possibleZero > 0) { // positive, same sign, zero not in this interval
                         leftVal = midEnergyVal
                     } else if (checkedPsi * possibleZero < 0) { // negative, sign change in this interval
                         rightVal = midEnergyVal
                     } else if (checkedPsi * possibleZero == 0) {
-                        
+
                     } else { // something went wrong
                         exit(1001)
                     }
                     
+//                    leftVal = rightVal
+//                    rightVal = midEnergyVal
+                    
+                    prevPsi = checkedPsi
                     checkedPsi = possibleZero
                     energyFunc.append((psi: possibleZero, midEnergyVal))
                 }
