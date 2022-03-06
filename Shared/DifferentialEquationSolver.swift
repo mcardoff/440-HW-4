@@ -64,10 +64,8 @@ class SchrodingerSolver: NSObject, ObservableObject {
             
             energyFunc.append((psi: psiVal, energy: energyVal))
             
-            // check sign of fucntion output dumbass
+            // check sign of function output dumbass
             if (prevPsi.sign != psiVal.sign) {
-                // sign change detected!
-                // find energy value between energyVal and prevEnergy
                 var checkedPsi = psiVal
                 // recalculate the value of the functional with this energy
                 var leftVal = prevEnergy, rightVal = energyVal
@@ -113,16 +111,14 @@ class SchrodingerSolver: NSObject, ObservableObject {
             print("EMPTY")
         }
         
-        energyFunc.sort(by: secondItem)
+        energyFunc.sort(by: {
+            (x: (psi: Double, energy: Double), y: (psi: Double, energy: Double)) -> Bool in return x.energy < y.energy
+        })
         
         toPlotData(xvals: Vf.xs, yvals: goodEnergyPsiCollection)
         energyEigenValues.append(contentsOf: goodEnergyValCollection)
         fillPotentialPlot(potential: Vf)
         fillEnergyFunc(vals: energyFunc)
-    }
-    
-    func secondItem(x: (psi: Double, energy: Double), y: (psi: Double, energy: Double)) -> Bool {
-        return x.energy < y.energy
     }
     
     func rknSingleEigenVal(a: Double, steps: Int, energyVal: Double, Vf: PotentialList, ic: InitialCondition, iterfunc: Iterfunctype) -> (totalPsi: [Double], lastVal: Double) {
@@ -145,6 +141,7 @@ class SchrodingerSolver: NSObject, ObservableObject {
         }
         return (totalPsi: psiList, lastVal: curPsi)
     }
+    
     
     /// rknSolve:
     /// Solve the 1D Schrodinger Equation using any function

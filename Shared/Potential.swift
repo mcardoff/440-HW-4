@@ -37,6 +37,16 @@ func quadraticWell(xMin: Double, xMax: Double, steps: Int, amplitude: Double) ->
     return generalWell(xMin: xMin, xMax: xMax, steps: steps, f: {(x:Double) -> Double in return amplitude * x * x})
 }
 
+func centeredQuadraticWell(xMin: Double, xMax: Double, steps: Int, amplitude: Double) -> PotentialList {
+    // centered at avg
+    func centered(x: Double) -> Double {
+        let midpt = (xMin + xMax) / 2
+        let adjst = (x - midpt)
+        return amplitude * adjst * adjst
+    }
+    return generalWell(xMin: xMin, xMax: xMax, steps: steps, f: centered)
+}
+
 func squareBarrier(xMin: Double, xMax: Double, steps: Int, amplitude: Double) -> PotentialList {
     func squareBarrier(x: Double) -> Double {
         if (x > 0.4*xMax && (x < 0.6*xMax)) {

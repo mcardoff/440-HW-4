@@ -21,4 +21,15 @@ class ChangingPlotParameters: NSObject, ObservableObject {
     var lineColor: CPTColor = .blue()
     var title: String = "Plot Title"
     
+    func changeParams(xLabel: String, yLabel: String, xMax : Double, yMax : Double, xMin : Double, yMin : Double, lineColor: CPTColor, title: String) {
+        self.xLabel = xLabel
+        self.yLabel = yLabel
+        self.xMax = xMax
+        self.yMax = yMax
+        self.xMin = xMin
+        self.yMin = yMin
+        self.lineColor = lineColor
+        self.title = title
+    }
+    
 }
