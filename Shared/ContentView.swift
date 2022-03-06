@@ -28,7 +28,7 @@ struct ContentView: View {
                     .padding()
             }
             
-            CorePlot(dataForPlot: $solver.totalFuncToPlot[selector],
+            CorePlot(dataForPlot: $solver.energyFunctional,
                      changingPlotParameters: $plotData.plotArray[0].changingPlotParameters)
                 .setPlotPadding(left: 10)
                 .setPlotPadding(right: 10)
@@ -50,7 +50,9 @@ struct ContentView: View {
     func calculate() {
         let a = 2.0
         let ic : InitialCondition = (psi: 0, psip: 1)
-        let V = squareWell(xMin: 0, xMax: a, steps: 1000, height: 0.0)
+//        let V = squareWell(xMin: 0, xMax: a, steps: 1000, height: 0.0)
+        let V = linearWell(xMin: 0, xMax: a, steps: 1000, slope: 0.0)
+
         solver.boundaryValProblem(a: a, steps: 1000, Vf: V, ic: ic)
     }
 }

@@ -54,13 +54,15 @@ class SchrodingerSolver: NSObject, ObservableObject {
         var energyFunc : [(psi: Double, energy: Double)] = []
         
         // output from rknSolve
-        let lastPointForBC : [(psi: Double, energy: Double)] = rk4Solve(a: a, steps: steps, Vf: Vf, ic: ic, eMin: 1.0, eMax: 12, eStride: 0.04)
+        let lastPointForBC : [(psi: Double, energy: Double)] = rk4Solve(a: a, steps: steps, Vf: Vf, ic: ic, eMin: 1.0, eMax: 32.0, eStride: 0.5)
         
         
         var prevEnergy : Double = 0.0, prevPsi = 0.0
         for tup in lastPointForBC {
             let energyVal = tup.energy
             let psiVal = tup.psi
+            
+            energyFunc.append((psi: psiVal, energy: energyVal))
             
             // check sign of fucntion output dumbass
             if (prevPsi.sign != psiVal.sign) {
@@ -69,14 +71,13 @@ class SchrodingerSolver: NSObject, ObservableObject {
                 var checkedPsi = psiVal
                 // recalculate the value of the functional with this energy
                 var leftVal = prevEnergy, rightVal = energyVal
-                var midEnergyVal = 0.0
+                var testVal = 0.0
                 var possibleAnswer : (totalPsi: [Double], lastVal: Double) = (totalPsi: [], -12.6)
+
                 while(abs(checkedPsi - prevPsi) > precision) {
-                    print("Current psi val: \(checkedPsi)")
-                    print(String( format: "Current Energy interval: [%0.16f, %0.16f]", leftVal, rightVal))
-                    midEnergyVal = rightVal - checkedPsi * (rightVal - rightVal) / (checkedPsi - prevPsi)
+                    testVal = rightVal - checkedPsi * (rightVal - leftVal) / (checkedPsi - prevPsi)
 //                    midEnergyVal = (rightVal + leftVal) / 2.0
-                    possibleAnswer = rknSingleEigenVal(a: a, steps: steps, energyVal: midEnergyVal, Vf: Vf, ic: ic, iterfunc: rk4)
+                    possibleAnswer = rknSingleEigenVal(a: a, steps: steps, energyVal: testVal, Vf: Vf, ic: ic, iterfunc: rk4)
                     let possibleZero = possibleAnswer.lastVal
                     
                     // check sign change between possibleZero and checkedVal
@@ -92,11 +93,11 @@ class SchrodingerSolver: NSObject, ObservableObject {
 //                    }
                     
                     leftVal = rightVal
-                    rightVal = midEnergyVal
+                    rightVal = testVal
                     
                     prevPsi = checkedPsi
                     checkedPsi = possibleZero
-                    energyFunc.append((psi: possibleZero, midEnergyVal))
+                    energyFunc.append((psi: possibleZero, testVal))
                 }
                 // now the value is in a good range
                 if(!possibleAnswer.totalPsi.isEmpty) {
@@ -111,14 +112,20 @@ class SchrodingerSolver: NSObject, ObservableObject {
         if(goodEnergyPsiCollection.isEmpty) {
             print("EMPTY")
         }
+        
+        energyFunc.sort(by: secondItem)
+        
         toPlotData(xvals: Vf.xs, yvals: goodEnergyPsiCollection)
         energyEigenValues.append(contentsOf: goodEnergyValCollection)
         fillPotentialPlot(potential: Vf)
         fillEnergyFunc(vals: energyFunc)
     }
     
+    func secondItem(x: (psi: Double, energy: Double), y: (psi: Double, energy: Double)) -> Bool {
+        return x.energy < y.energy
+    }
+    
     func rknSingleEigenVal(a: Double, steps: Int, energyVal: Double, Vf: PotentialList, ic: InitialCondition, iterfunc: Iterfunctype) -> (totalPsi: [Double], lastVal: Double) {
-        print("In Single boi")
         let xs : [Double] = Vf.xs, vs : [Double] = Vf.Vs
         let stepSize = a / Double(steps), h = stepSize
         var curPsi = ic.psi, curPsip = ic.psip
