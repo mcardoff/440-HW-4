@@ -115,12 +115,52 @@ class SchrodingerSolver: NSObject, ObservableObject {
             (x: (psi: Double, energy: Double), y: (psi: Double, energy: Double)) -> Bool in return x.energy < y.energy
         })
         
+        goodEnergyPsiCollection = normalizeWaveFuncs(psiCollection: goodEnergyPsiCollection, a: a, steps: steps)
+        
         toPlotData(xvals: Vf.xs, yvals: goodEnergyPsiCollection)
         energyEigenValues.append(contentsOf: goodEnergyValCollection)
         fillPotentialPlot(potential: Vf)
         fillEnergyFunc(vals: energyFunc)
     }
     
+    // use simpsons method to approximate the integral
+    func normalizeWaveFuncs(psiCollection: [[Double]], a: Double, steps: Int) -> [[Double]]{
+        // integrate the function and use thact factor to ensure normalization
+        assert(psiCollection.count > 0)
+        let h = a / Double(steps)
+        var newPsiCollection : [[Double]] = []
+        for list in psiCollection {
+//            print("New List")
+            var newList : [Double] = []
+            var sum = (list[0] + list.last!) / 2.0
+//            let list = psiCollection[0]
+//            print(list.count)
+            for i in 1..<list.count  {
+//                print(i)
+                sum += list[i]
+            }
+            
+            let normVal = h * sum
+            print(normVal)
+            for i in 0...list.count-1 {
+                newList.append(list[i] / normVal)
+            }
+            newPsiCollection.append(newList)
+        }
+        
+        
+        return newPsiCollection
+    }
+    
+    /// rknSolve:
+    /// Solve the 1D Schrodinger Equation for a single energy Eigenvalue
+    /// - Parameters:
+    ///   - a: Box width
+    ///   - steps: number of points to put in between 0,a
+    ///   - energyVal: energy eigenvalue to solve the schrodinger equation with
+    ///   - Vf: Potential to solve for
+    ///   - ic: Initial Condition
+    ///   - iterfunc: iteration function to use, either Euler's method or RK4
     func rknSingleEigenVal(a: Double, steps: Int, energyVal: Double, Vf: PotentialList, ic: InitialCondition, iterfunc: Iterfunctype) -> (totalPsi: [Double], lastVal: Double) {
         let xs : [Double] = Vf.xs, vs : [Double] = Vf.Vs
         let stepSize = a / Double(steps), h = stepSize
@@ -150,6 +190,7 @@ class SchrodingerSolver: NSObject, ObservableObject {
     ///   - steps: number of points to put in between 0,a
     ///   - Vf: Potential to solve for
     ///   - ic: Initial Condition
+    ///   - iterfunc: determines which method of solution, euler for RK0, rk4 for RK4
     func rknSolve(a: Double, steps: Int, Vf: PotentialList, ic: InitialCondition, iterfunc: Iterfunctype,
                   eMin: Double, eMax: Double, eStride: Double) -> [(psi: Double, energy: Double)] {
         // Important for the iteration

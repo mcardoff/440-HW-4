@@ -51,10 +51,10 @@ struct ContentView: View {
         let a = 2.0
         let steps = 250
         let ic : InitialCondition = (psi: 0, psip: 1)
-//        let V = squareWell(xMin: 0, xMax: a, steps: 1000, height: 0.0)
+        let V = squareWell(xMin: 0, xMax: a, steps: steps, height: 0.0)
 //        let V = linearWell(xMin: 0, xMax: a, steps: steps, slope: 14.0)
 //        let V = quadraticWell(xMin: 0, xMax: a, steps: steps, amplitude: 1.0)
-        let V = centeredQuadraticWell(xMin: 0, xMax: a, steps: steps, amplitude: 1.0)
+//        let V = centeredQuadraticWell(xMin: 0, xMax: a, steps: steps, amplitude: 1.0)
 
         solver.boundaryValProblem(a: a, steps: steps, Vf: V, ic: ic)
     }
