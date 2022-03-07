@@ -127,20 +127,24 @@ class SchrodingerSolver: NSObject, ObservableObject {
     func normalizeWaveFuncs(psiCollection: [[Double]], a: Double, steps: Int) -> [[Double]]{
         // integrate the function and use thact factor to ensure normalization
         assert(psiCollection.count > 0)
-        var sum = 0.0
-        for item in psiCollection[0] {
-            sum += item
-        }
-        // average value theorem: I(a->b) = (b - a) * <f>
-        let normVal = (a - 0.0) * sum / Double(steps)
+       
         
         var newPsiCollection : [[Double]] = []
         for list in psiCollection {
             assert(list.count == steps)
+            
+            var sum = 0.0
+            for item in list {
+                sum += item * item
+            }
+            // average value theorem: I(a->b) = (b - a) * <f>
+            let normVal = (a - 0.0) * sum / Double(steps)
+            print(normVal)
             var newList : [Double] = []
             for item in list {
                 newList.append(item / normVal)
             }
+            
             newPsiCollection.append(newList)
         }
         
