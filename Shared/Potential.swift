@@ -52,9 +52,9 @@ func getPotential(xMin: Double, xMax: Double, steps: Int, choice: PotentialType)
     case .linear:
         return linearWell(xMin: xMin, xMax: xMax, steps: steps, slope: 14.0)
     case .quadratic:
-        return quadraticWell(xMin: xMin, xMax: xMax, steps: steps, amplitude: 0.5)
+        return quadraticWell(xMin: xMin, xMax: xMax, steps: steps, amplitude: 5.0)
     case .centeredquadratic:
-        return centeredQuadraticWell(xMin: xMin, xMax: xMax, steps: steps, amplitude: 0.5)
+        return centeredQuadraticWell(xMin: xMin, xMax: xMax, steps: steps, amplitude: 5.0)
     case .squarebarrier:
         return squareBarrier(xMin: xMin, xMax: xMax, steps: steps, amplitude: 2.0)
     case .trianglebarrier:
@@ -93,10 +93,15 @@ func quadraticWell(xMin: Double, xMax: Double, steps: Int, amplitude: Double) ->
 func centeredQuadraticWell(xMin: Double, xMax: Double, steps: Int, amplitude: Double) -> PotentialList {
     // centered at avg
     func centered(x: Double) -> Double {
-        let midpt = (xMin + xMax) / 2
-        let adjst = (x - midpt)
-        return amplitude * adjst * adjst
+        if (x > 0.4*xMax && (x < 0.6*xMax)) {
+            let midpt = (xMin + xMax) / 2
+            let adjst = (x - midpt)
+            return amplitude * adjst * adjst
+        } else {
+            return 0.0
+        }
     }
+    
     return generalWell(xMin: xMin, xMax: xMax, steps: steps, f: centered)
 }
 
