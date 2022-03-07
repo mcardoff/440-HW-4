@@ -43,6 +43,27 @@ enum PotentialType: CaseIterable, Identifiable {
     }
 }
 
+func getPotential(xMin: Double, xMax: Double, steps: Int, choice: PotentialType) -> PotentialList {
+    print(choice)
+
+    switch(choice) {
+    case .square:
+        return squareWell(xMin: xMin, xMax: xMax, steps: steps, height: 0.0)
+    case .linear:
+        return linearWell(xMin: xMin, xMax: xMax, steps: steps, slope: 14.0)
+    case .quadratic:
+        return quadraticWell(xMin: xMin, xMax: xMax, steps: steps, amplitude: 0.5)
+    case .centeredquadratic:
+        return centeredQuadraticWell(xMin: xMin, xMax: xMax, steps: steps, amplitude: 0.5)
+    case .squarebarrier:
+        return squareBarrier(xMin: xMin, xMax: xMax, steps: steps, amplitude: 2.0)
+    case .trianglebarrier:
+        return triangleBarrier(xMin: xMin, xMax: xMax, steps: steps, amplitude: 2.0)
+//    default:
+//        return squareWell(xMin: xMin, xMax: xMax, steps: steps, height: 0.0)
+    }
+}
+
 func generalWell(xMin: Double, xMax: Double, steps: Int, f: PotentialFunc) -> PotentialList {
     var x: [Double] = [xMin], V : [Double] = [MXVAL] // start with really high value, should be infinite
     

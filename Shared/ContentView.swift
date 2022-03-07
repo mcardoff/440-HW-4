@@ -20,6 +20,7 @@ struct ContentView: View {
     @State var numSteps: Int? = 250
     @State var wellWidth: Double? = 2.0
     @State var potentialString: String = ""
+    @State var potentialVal: PotentialType = .square
     
     private var intFormatter: NumberFormatter = {
         let f = NumberFormatter()
@@ -52,12 +53,11 @@ struct ContentView: View {
                 
                 VStack {
                     Text("Potential")
-                    Picker("Potential", selection: $potentialString) {
+                    Picker("", selection: $potentialVal) {
                         ForEach(PotentialType.allCases) {
                             potential in Text(potential.toString())
                         }
-                    }
-                        .frame(width: 100.0)
+                    }.frame(width: 150.0)
                 }.padding()
                 
                 Button("Solve", action: self.calculate)
@@ -89,15 +89,9 @@ struct ContentView: View {
     }
     
     func calculate() {
-        let a = 2.0
-        let steps = 250
         let ic : InitialCondition = (psi: 0, psip: 1)
-//        let V = squareWell(xMin: 0, xMax: a, steps: steps, height: 0.0)
-        let V = linearWell(xMin: 0, xMax: a, steps: steps, slope: 14.0)
-//        let V = quadraticWell(xMin: 0, xMax: a, steps: steps, amplitude: 1.0)
-//        let V = centeredQuadraticWell(xMin: 0, xMax: a, steps: steps, amplitude: 1.0)
-
-        solver.boundaryValProblem(a: a, steps: steps, Vf: V, ic: ic)
+        let V = getPotential(xMin: 0, xMax: wellWidth!, steps: numSteps!, choice: potentialVal)
+        solver.boundaryValProblem(a: wellWidth!, steps: numSteps!, Vf: V, ic: ic)
     }
 }
 
