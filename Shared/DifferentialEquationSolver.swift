@@ -41,8 +41,7 @@ typealias Iterfunctype = (_: Double, _: Double, _: Double, _: Double, _: Double,
 
 class SchrodingerSolver: NSObject, ObservableObject {
     
-    @Published var goodFuncToPlot : [plotDataType] = []
-    @Published var totalFuncToPlot : [[plotDataType]] = [[[.X:0.0, .Y:0.0]]]
+    @Published var totalFuncToPlot : [[plotDataType]] = []
     @Published var energyFunctional : [plotDataType] = []
     @Published var potentialPlot : [plotDataType] = []
     var energyEigenValues : [Double] = []
@@ -305,21 +304,13 @@ class SchrodingerSolver: NSObject, ObservableObject {
         return consts * rest
     }
     
-    /// Helper functions to turn data values in RK4/Euler to plottable things
-    func toPlotData(xvals: [Double], yvals: [Double]) {
-        for i in 0..<xvals.count {
-            let x = xvals[i], y = yvals[i]
-            goodFuncToPlot.append([.X: x, .Y: y])
-        }
-    }
-    
+    /// Helper function to turn data values in RK4/Euler to plottable things
     func toPlotData(xvals: [Double], yvals: [[Double]]) {
         totalFuncToPlot = []
         for vals in yvals {
             var tempList : [plotDataType] = []
             for (x,y) in zip(xvals, vals) {
                 tempList.append([.X: x, .Y: y])
-                goodFuncToPlot.append([.X: x, .Y: y])
             }
             totalFuncToPlot.append(tempList)
         }
@@ -335,6 +326,13 @@ class SchrodingerSolver: NSObject, ObservableObject {
         for (x, V) in zip(potential.xs, potential.Vs) {
             potentialPlot.append([.X: x, .Y: V])
         }
+    }
+    
+    func clearData() {
+        self.totalFuncToPlot.removeAll()
+        self.energyFunctional.removeAll()
+        self.potentialPlot.removeAll()
+        self.energyEigenValues.removeAll()
     }
     
     

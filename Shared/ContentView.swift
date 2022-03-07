@@ -14,11 +14,13 @@ struct ContentView: View {
     
     @EnvironmentObject var plotData : PlotClass
     @ObservedObject var solver = SchrodingerSolver()
-    @State var selector = 0
+    @State var emptyPlot : [plotDataType] = []
     
     // changed variables
+    @State var selector = 0
     @State var numSteps: Int? = 250
     @State var wellWidth: Double? = 2.0
+    @State var amplitude: Double? = 0.0
     @State var potentialString: String = ""
     @State var potentialVal: PotentialType = .square
     
@@ -60,22 +62,60 @@ struct ContentView: View {
                     }.frame(width: 150.0)
                 }.padding()
                 
+                VStack {
+                    Text("Amplitude Parameter")
+                    TextField("Amplitude Factor for Potential", value: $amplitude, formatter: doubleFormatter)
+                        .frame(width: 100.0)
+                }.padding()
+                
                 Button("Solve", action: self.calculate)
                     .frame(width: 100)
                     .padding()
                 
-                Button("iter", action: self.iteratesel)
+                Button("Next Energy Val", action: self.iteratesel)
+                    .padding()
+                
+                Button("Clear", action: self.clear)
                     .frame(width: 100)
                     .padding()
             }
-            
-            CorePlot(dataForPlot: $solver.totalFuncToPlot[selector],
-                     changingPlotParameters: $plotData.plotArray[0].changingPlotParameters)
-                .setPlotPadding(left: 10)
-                .setPlotPadding(right: 10)
-                .setPlotPadding(top: 10)
-                .setPlotPadding(bottom: 10)
-                .padding()
+            TabView {
+                CorePlot(
+                    dataForPlot: $solver.totalFuncToPlot.count > 0 ? $solver.totalFuncToPlot[selector] : $emptyPlot,
+                    changingPlotParameters: $plotData.plotArray[0].changingPlotParameters)
+                    .setPlotPadding(left: 10)
+                    .setPlotPadding(right: 10)
+                    .setPlotPadding(top: 10)
+                    .setPlotPadding(bottom: 10)
+                    .padding()
+                    .tabItem {
+                        Text("Wavefunction Plot")
+                    }
+                
+                CorePlot(
+                    dataForPlot: $solver.potentialPlot,
+                    changingPlotParameters: $plotData.plotArray[0].changingPlotParameters)
+                    .setPlotPadding(left: 10)
+                    .setPlotPadding(right: 10)
+                    .setPlotPadding(top: 10)
+                    .setPlotPadding(bottom: 10)
+                    .padding()
+                    .tabItem {
+                        Text("Potential Plot")
+                    }
+                
+                CorePlot(
+                    dataForPlot: $solver.energyFunctional,
+                    changingPlotParameters: $plotData.plotArray[0].changingPlotParameters)
+                    .setPlotPadding(left: 10)
+                    .setPlotPadding(right: 10)
+                    .setPlotPadding(top: 10)
+                    .setPlotPadding(bottom: 10)
+                    .padding()
+                    .tabItem {
+                        Text("Energy Functional Plot")
+                    }
+            }
         }
     }
         
@@ -88,9 +128,15 @@ struct ContentView: View {
         }
     }
     
+    func clear() {
+        selector = 0
+        solver.clearData()
+    }
+    
     func calculate() {
+        self.clear()
         let ic : InitialCondition = (psi: 0, psip: 1)
-        let V = getPotential(xMin: 0, xMax: wellWidth!, steps: numSteps!, choice: potentialVal)
+        let V = getPotential(xMin: 0, xMax: wellWidth!, steps: numSteps!, choice: potentialVal, amplitude: amplitude!)
         solver.boundaryValProblem(a: wellWidth!, steps: numSteps!, Vf: V, ic: ic)
     }
 }

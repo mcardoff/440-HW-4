@@ -43,22 +43,22 @@ enum PotentialType: CaseIterable, Identifiable {
     }
 }
 
-func getPotential(xMin: Double, xMax: Double, steps: Int, choice: PotentialType) -> PotentialList {
+func getPotential(xMin: Double, xMax: Double, steps: Int, choice: PotentialType, amplitude: Double) -> PotentialList {
     print(choice)
 
     switch(choice) {
     case .square:
-        return squareWell(xMin: xMin, xMax: xMax, steps: steps, height: 0.0)
+        return squareWell(xMin: xMin, xMax: xMax, steps: steps, height: amplitude)
     case .linear:
-        return linearWell(xMin: xMin, xMax: xMax, steps: steps, slope: 14.0)
+        return linearWell(xMin: xMin, xMax: xMax, steps: steps, slope: amplitude)
     case .quadratic:
-        return quadraticWell(xMin: xMin, xMax: xMax, steps: steps, amplitude: 5.0)
+        return quadraticWell(xMin: xMin, xMax: xMax, steps: steps, amplitude: amplitude)
     case .centeredquadratic:
-        return centeredQuadraticWell(xMin: xMin, xMax: xMax, steps: steps, amplitude: 5.0)
+        return centeredQuadraticWell(xMin: xMin, xMax: xMax, steps: steps, amplitude: amplitude)
     case .squarebarrier:
-        return squareBarrier(xMin: xMin, xMax: xMax, steps: steps, amplitude: 2.0)
+        return squareBarrier(xMin: xMin, xMax: xMax, steps: steps, amplitude: amplitude)
     case .trianglebarrier:
-        return triangleBarrier(xMin: xMin, xMax: xMax, steps: steps, amplitude: 2.0)
+        return triangleBarrier(xMin: xMin, xMax: xMax, steps: steps, amplitude: amplitude)
 //    default:
 //        return squareWell(xMin: xMin, xMax: xMax, steps: steps, height: 0.0)
     }
@@ -93,8 +93,8 @@ func quadraticWell(xMin: Double, xMax: Double, steps: Int, amplitude: Double) ->
 func centeredQuadraticWell(xMin: Double, xMax: Double, steps: Int, amplitude: Double) -> PotentialList {
     // centered at avg
     func centered(x: Double) -> Double {
-        if (x > 0.4*xMax && (x < 0.6*xMax)) {
-            let midpt = (xMin + xMax) / 2
+        let midpt = (xMin + xMax) / 2
+        if (x > 0.5*midpt && (x < 1.5*midpt)) {
             let adjst = (x - midpt)
             return amplitude * adjst * adjst
         } else {

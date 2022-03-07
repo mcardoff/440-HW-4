@@ -14,14 +14,8 @@ struct Schrodinger_SolverApp: App {
     
     var body: some Scene {
         WindowGroup {
-            TabView {
-                // Main show
-                ContentView()
-                    .environmentObject(plotData)
-                
-                // Plots
-                
-            }
+            ContentView()
+                .environmentObject(plotData)
         }
     }
 }
