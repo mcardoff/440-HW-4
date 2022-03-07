@@ -11,6 +11,38 @@ let MXVAL = 100000.0
 
 typealias CoordTuple = (x: Double, y: Double)
 
+enum PotentialType: CaseIterable, Identifiable {
+    static var allCases : [PotentialType] {
+        return [.square, .linear, .quadratic, .centeredquadratic, .squarebarrier, .trianglebarrier]
+    }
+    case square
+    case linear
+    case quadratic
+    case centeredquadratic
+    case squarebarrier
+    case trianglebarrier
+    
+    var id: Self { self }
+    
+    func toString() -> String {
+        switch self {
+            
+        case .square:
+            return "Square Well"
+        case .linear:
+            return "Linear Well"
+        case .quadratic:
+            return "Quadratic Well"
+        case .centeredquadratic:
+            return "Centered Quadratic Well"
+        case .squarebarrier:
+            return "Square Barrier"
+        case .trianglebarrier:
+            return "Triangle Barrier"
+        }
+    }
+}
+
 func generalWell(xMin: Double, xMax: Double, steps: Int, f: PotentialFunc) -> PotentialList {
     var x: [Double] = [xMin], V : [Double] = [MXVAL] // start with really high value, should be infinite
     

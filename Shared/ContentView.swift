@@ -16,9 +16,50 @@ struct ContentView: View {
     @ObservedObject var solver = SchrodingerSolver()
     @State var selector = 0
     
+    // changed variables
+    @State var numSteps: Int? = 250
+    @State var wellWidth: Double? = 2.0
+    @State var potentialString: String = ""
+    
+    private var intFormatter: NumberFormatter = {
+        let f = NumberFormatter()
+        f.numberStyle = .decimal
+        return f
+    }()
+    
+    private var doubleFormatter: NumberFormatter = {
+        let f = NumberFormatter()
+        f.minimumSignificantDigits = 2
+        f.maximumSignificantDigits = 9
+        return f
+    }()
+    
     var body: some View {
         HStack {
+            // variables to change: steps, a, potential, energy eigenval, energy search range
             VStack {
+                VStack {
+                    Text("Number of Steps")
+                    TextField("Number of Steps in RK4", value: $numSteps, formatter: intFormatter)
+                        .frame(width: 100.0)
+                }.padding()
+                
+                VStack {
+                    Text("Well Width")
+                    TextField("Goes from [0,a]", value: $wellWidth, formatter: doubleFormatter)
+                        .frame(width: 100.0)
+                }.padding()
+                
+                VStack {
+                    Text("Potential")
+                    Picker("Potential", selection: $potentialString) {
+                        ForEach(PotentialType.allCases) {
+                            potential in Text(potential.toString())
+                        }
+                    }
+                        .frame(width: 100.0)
+                }.padding()
+                
                 Button("Solve", action: self.calculate)
                     .frame(width: 100)
                     .padding()
@@ -51,8 +92,8 @@ struct ContentView: View {
         let a = 2.0
         let steps = 250
         let ic : InitialCondition = (psi: 0, psip: 1)
-        let V = squareWell(xMin: 0, xMax: a, steps: steps, height: 0.0)
-//        let V = linearWell(xMin: 0, xMax: a, steps: steps, slope: 14.0)
+//        let V = squareWell(xMin: 0, xMax: a, steps: steps, height: 0.0)
+        let V = linearWell(xMin: 0, xMax: a, steps: steps, slope: 14.0)
 //        let V = quadraticWell(xMin: 0, xMax: a, steps: steps, amplitude: 1.0)
 //        let V = centeredQuadraticWell(xMin: 0, xMax: a, steps: steps, amplitude: 1.0)
 
