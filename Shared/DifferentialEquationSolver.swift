@@ -77,18 +77,6 @@ class SchrodingerSolver: NSObject, ObservableObject {
                     possibleAnswer = rknSingleEigenVal(a: a, steps: steps, energyVal: testVal, Vf: Vf, ic: ic, iterfunc: rk4)
                     let possibleZero = possibleAnswer.lastVal
                     
-                    // check sign change between possibleZero and checkedVal
-                    
-//                    if (checkedPsi * possibleZero > 0) { // positive, same sign, zero not in this interval
-//                        leftVal = midEnergyVal
-//                    } else if (checkedPsi * possibleZero < 0) { // negative, sign change in this interval
-//                        rightVal = midEnergyVal
-//                    } else if (checkedPsi * possibleZero == 0) {
-//
-//                    } else { // something went wrong
-//                        exit(1001)
-//                    }
-                    
                     leftVal = rightVal
                     rightVal = testVal
                     
@@ -126,8 +114,6 @@ class SchrodingerSolver: NSObject, ObservableObject {
     func normalizeWaveFuncs(psiCollection: [[Double]], a: Double, steps: Int) -> [[Double]]{
         // integrate the function and use thact factor to ensure normalization
         assert(psiCollection.count > 0)
-       
-        
         var newPsiCollection : [[Double]] = []
         for list in psiCollection {
             assert(list.count == steps)
@@ -143,11 +129,8 @@ class SchrodingerSolver: NSObject, ObservableObject {
             for item in list {
                 newList.append(item / normVal)
             }
-            
             newPsiCollection.append(newList)
         }
-        
-        
         return newPsiCollection
     }
     

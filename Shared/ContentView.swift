@@ -21,6 +21,10 @@ struct ContentView: View {
     @State var numSteps: Int? = 250
     @State var wellWidth: Double? = 2.0
     @State var amplitude: Double? = 0.0
+    @State var eMin: Double? = 1.0
+    @State var eMax: Double? = 30.0
+    @State var eStep: Double? = 0.5
+    
     @State var potentialString: String = ""
     @State var potentialVal: PotentialType = .square
     
@@ -32,7 +36,7 @@ struct ContentView: View {
     
     private var doubleFormatter: NumberFormatter = {
         let f = NumberFormatter()
-        f.minimumSignificantDigits = 2
+        f.minimumSignificantDigits = 3
         f.maximumSignificantDigits = 9
         return f
     }()
@@ -52,6 +56,24 @@ struct ContentView: View {
                     TextField("Goes from [0,a]", value: $wellWidth, formatter: doubleFormatter)
                         .frame(width: 100.0)
                 }.padding()
+                
+                VStack {
+                    Text("Energy Min and Max")
+                    HStack {
+                        TextField("eMin", value: $eMin, formatter: doubleFormatter)
+                            .frame(width: 100.0)
+                        TextField("eMax", value: $eMax, formatter: doubleFormatter)
+                            .frame(width: 100.0)
+                    }
+                }.padding()
+                
+                VStack {
+                    Text("Energy Step")
+                    HStack {
+                        TextField("eStep", value: $eStep, formatter: doubleFormatter)
+                            .frame(width: 100.0)
+                    }
+                }
                 
                 VStack {
                     Text("Potential")
