@@ -44,10 +44,12 @@ class SchrodingerSolver: NSObject, ObservableObject {
     @Published var totalFuncToPlot : [[plotDataType]] = []
     @Published var energyFunctional : [plotDataType] = []
     @Published var potentialPlot : [plotDataType] = []
+    
     var energyEigenValues : [Double] = []
     
-    func boundaryValProblem(a: Double, steps: Int, Vf: PotentialList, ic: InitialCondition) {
-        let precision = 1e-3
+    func boundaryValProblem(a: Double, steps: Int, Vf: PotentialList, ic: InitialCondition,
+                            eMin: Double, eMax: Double, eStride: Double) {
+        let precision = 1e-4
         // these will have the good energy eigenvalues and the functions as well:
         var goodEnergyPsiCollection : [[Double]] = [], goodEnergyValCollection : [Double] = []
         var energyFunc : [(psi: Double, energy: Double)] = []
@@ -94,9 +96,6 @@ class SchrodingerSolver: NSObject, ObservableObject {
             prevPsi = psiVal
             energyFunc.append((psi: psiVal, energy: energyVal))
         }
-        if(goodEnergyPsiCollection.isEmpty) {
-            print("EMPTY")
-        }
         
         energyFunc.sort(by: {
             (x: (psi: Double, energy: Double), y: (psi: Double, energy: Double)) -> Bool in return x.energy < y.energy
@@ -124,7 +123,6 @@ class SchrodingerSolver: NSObject, ObservableObject {
             }
             // average value theorem: I(a->b) = (b - a) * <f>
             let normVal = (a - 0.0) * sum / Double(steps)
-            print(normVal)
             var newList : [Double] = []
             for item in list {
                 newList.append(item / normVal)
@@ -134,7 +132,7 @@ class SchrodingerSolver: NSObject, ObservableObject {
         return newPsiCollection
     }
     
-    /// rknSolve:
+    /// rknSingleEigenVal:
     /// Solve the 1D Schrodinger Equation for a single energy Eigenvalue
     /// - Parameters:
     ///   - a: Box width

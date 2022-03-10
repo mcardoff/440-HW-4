@@ -44,7 +44,7 @@ enum PotentialType: CaseIterable, Identifiable {
 }
 
 func getPotential(xMin: Double, xMax: Double, steps: Int, choice: PotentialType, amplitude: Double) -> PotentialList {
-    print(choice)
+//    print(choice)
 
     switch(choice) {
     case .square:
@@ -59,8 +59,6 @@ func getPotential(xMin: Double, xMax: Double, steps: Int, choice: PotentialType,
         return squareBarrier(xMin: xMin, xMax: xMax, steps: steps, amplitude: amplitude)
     case .trianglebarrier:
         return triangleBarrier(xMin: xMin, xMax: xMax, steps: steps, amplitude: amplitude)
-//    default:
-//        return squareWell(xMin: xMin, xMax: xMax, steps: steps, height: 0.0)
     }
 }
 
@@ -71,6 +69,7 @@ func generalWell(xMin: Double, xMax: Double, steps: Int, f: PotentialFunc) -> Po
     for xVal in stride(from: xMin+stepSize, to: xMax-stepSize, by: stepSize) {
         x.append(xVal)
         V.append(f(xVal))
+//        print(f(xVal))
     }
     
     x.append(xMax)
@@ -107,7 +106,7 @@ func centeredQuadraticWell(xMin: Double, xMax: Double, steps: Int, amplitude: Do
 
 func squareBarrier(xMin: Double, xMax: Double, steps: Int, amplitude: Double) -> PotentialList {
     func squareBarrier(x: Double) -> Double {
-        if (x > 0.4*xMax && (x < 0.6*xMax)) {
+        if (x > 0.4*(xMax-xMin) && (x < 0.6*(xMax-xMin))) {
             return amplitude
         } else {
             return 0.0
@@ -119,10 +118,10 @@ func squareBarrier(xMin: Double, xMax: Double, steps: Int, amplitude: Double) ->
 
 func triangleBarrier(xMin: Double, xMax: Double, steps: Int, amplitude: Double) -> PotentialList {
     func triangleBarrier(x: Double) -> Double {
-        if (x > 0.4*xMax && (x < xMax / 2.0)) {
-            return amplitude * x
-        } else if (x > xMax / 2.0 && x < 0.6*xMax) {
-            return -amplitude * x + (amplitude * xMax / 2)
+        if ((0.4*xMax < x) && (x < xMax / 2.0)) {
+            return amplitude * (x - 0.4*xMax)
+        } else if (x >= xMax / 2.0 && x <= 0.6*xMax) {
+            return -amplitude * (x - 0.6*xMax)
         } else {
             return 0.0
         }

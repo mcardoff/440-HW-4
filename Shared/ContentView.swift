@@ -20,12 +20,10 @@ struct ContentView: View {
     @State var selector = 0
     @State var numSteps: Int? = 250
     @State var wellWidth: Double? = 2.0
-    @State var amplitude: Double? = 0.0
+    @State var amplitude: Double? = 0.5
     @State var eMin: Double? = 1.0
     @State var eMax: Double? = 30.0
     @State var eStep: Double? = 0.5
-    
-    @State var potentialString: String = ""
     @State var potentialVal: PotentialType = .square
     
     private var intFormatter: NumberFormatter = {
@@ -94,7 +92,10 @@ struct ContentView: View {
                     .frame(width: 100)
                     .padding()
                 
-                Button("Next Energy Val", action: self.iteratesel)
+                Button("Next Energy Val", action: self.increasesel)
+                    .padding()
+                
+                Button("Prev Energy Val", action: self.decreasesel)
                     .padding()
                 
                 Button("Clear", action: self.clear)
@@ -142,9 +143,17 @@ struct ContentView: View {
     }
         
     
-    func iteratesel() {
-        if selector < $solver.totalFuncToPlot.count - 1 {
+    func increasesel() {
+        if selector < $solver.totalFuncToPlot.count - 1 && selector > 0 {
             selector += 1
+        } else {
+            selector = 0
+        }
+    }
+    
+    func decreasesel() {
+        if selector < $solver.totalFuncToPlot.count - 1 {
+            selector -= 1
         } else {
             selector = 0
         }
@@ -159,7 +168,9 @@ struct ContentView: View {
         self.clear()
         let ic : InitialCondition = (psi: 0, psip: 1)
         let V = getPotential(xMin: 0, xMax: wellWidth!, steps: numSteps!, choice: potentialVal, amplitude: amplitude!)
-        solver.boundaryValProblem(a: wellWidth!, steps: numSteps!, Vf: V, ic: ic)
+//        print(V)
+        solver.boundaryValProblem(a: wellWidth!, steps: numSteps!,
+                                  Vf: V, ic: ic, eMin: eMin!, eMax: eMax!, eStride: eStep!)
     }
 }
 
