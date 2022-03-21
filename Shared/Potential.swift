@@ -13,15 +13,17 @@ typealias CoordTuple = (x: Double, y: Double)
 
 enum PotentialType: CaseIterable, Identifiable {
     static var allCases : [PotentialType] {
-        return [.square, .linear, .quadratic, .centeredquadratic, .squarebarrier, .trianglebarrier]
+        return [.square, .linear, .quadratic, .centeredquadratic, .squarebarrier, .trianglebarrier, .squarepluslinear, .coupledQuadratic, .coupledSquarePlusField]
     }
     case square
     case linear
     case quadratic
     case centeredquadratic
     case squarebarrier
+    case squarepluslinear
     case trianglebarrier
     case coupledQuadratic
+    case coupledSquarePlusField
     
     var id: Self { self }
     
@@ -42,6 +44,10 @@ enum PotentialType: CaseIterable, Identifiable {
             return "Triangle Barrier"
         case .coupledQuadratic:
             return "Coupled Quadratic"
+        case .squarepluslinear:
+            return "Square+Linear"
+        case .coupledSquarePlusField:
+            return "Coupled Square+Field"
         }
     }
 }
@@ -64,6 +70,10 @@ func getPotential(xMin: Double, xMax: Double, steps: Int, choice: PotentialType,
         return triangleBarrier(xMin: xMin, xMax: xMax, steps: steps, amplitude: amplitude)
     case .coupledQuadratic:
         return coupledQuadratic(xMin: xMin, xMax: xMax, steps: steps, amplitude: amplitude)
+    case .squarepluslinear:
+        return squarePlusLinear(xMin: xMin, xMax: xMax, steps: steps, amplitude: amplitude)
+    case .coupledSquarePlusField:
+        return coupledSquarePlusField(xMin: xMin, xMax: xMax, steps: steps, amplitude: amplitude)
     }
 }
 
@@ -176,6 +186,36 @@ func triangleBarrier(xMin: Double, xMax: Double, steps: Int, amplitude: Double) 
     return generalWell(xMin: xMin, xMax: xMax, steps: steps, f: triangleBarrier)
 }
 
+func coupledSquarePlusField(xMin: Double, xMax: Double, steps: Int, amplitude: Double) -> PotentialList {
+    var x: [Double] = [xMin], V : [Double] = [MXVAL] // start with really high value, should be infinite
+    let xStep = (xMax - xMin) / Double(steps)
+    
+    for i in stride(from: xMin+xStep, to: xMin + (xMax-xMin)*0.4, by: xStep) {
+        
+        x.append(i)
+        V.append(0.0)
+        
+    }
+    
+    for i in stride(from: xMin + (xMax-xMin)*0.4, to: xMin + (xMax-xMin)*0.6, by: xStep) {
+        
+        x.append(i)
+        V.append(4.0)
+        
+    }
+    
+    for i in stride(from: xMin + (xMax-xMin)*0.6, to: xMax, by: xStep) {
+        
+        x.append(i)
+        V.append(0.0)
+        
+    }
+    
+    x.append(xMax)
+    V.append(MXVAL)
+    
+    return (xs: x, Vs: V)
+}
 
 func kronigPenney(xMin: Double, xMax: Double, steps: Int, amplitude: Double) -> PotentialList {
     return (xs: [], Vs: [])
