@@ -169,8 +169,8 @@ struct ContentView: View {
         let ic : InitialCondition = (psi: 0, psip: 1)
         let V = getPotential(xMin: 0, xMax: wellWidth!, steps: numSteps!, choice: potentialVal, amplitude: amplitude!)
 //        print(V)
-        solver.boundaryValProblem(a: wellWidth!, steps: numSteps!,
-                                  Vf: V, ic: ic, eMin: eMin!, eMax: eMax!, eStride: eStep!)
+        solver.boundaryValProblem(a: wellWidth!, steps: numSteps!, Vf: V, ic: ic,
+                                  eMin: eMin!, eMax: eMax!, eStride: eStep!)
     }
 }
 

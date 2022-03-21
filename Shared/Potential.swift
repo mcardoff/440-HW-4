@@ -21,6 +21,7 @@ enum PotentialType: CaseIterable, Identifiable {
     case centeredquadratic
     case squarebarrier
     case trianglebarrier
+    case coupledQuadratic
     
     var id: Self { self }
     
@@ -39,6 +40,8 @@ enum PotentialType: CaseIterable, Identifiable {
             return "Square Barrier"
         case .trianglebarrier:
             return "Triangle Barrier"
+        case .coupledQuadratic:
+            return "Coupled Quadratic"
         }
     }
 }
@@ -59,6 +62,8 @@ func getPotential(xMin: Double, xMax: Double, steps: Int, choice: PotentialType,
         return squareBarrier(xMin: xMin, xMax: xMax, steps: steps, amplitude: amplitude)
     case .trianglebarrier:
         return triangleBarrier(xMin: xMin, xMax: xMax, steps: steps, amplitude: amplitude)
+    case .coupledQuadratic:
+        return coupledQuadratic(xMin: xMin, xMax: xMax, steps: steps, amplitude: amplitude)
     }
 }
 
@@ -89,6 +94,27 @@ func quadraticWell(xMin: Double, xMax: Double, steps: Int, amplitude: Double) ->
     return generalWell(xMin: xMin, xMax: xMax, steps: steps, f: {(x:Double) -> Double in return amplitude * x * x})
 }
 
+func squarePlusLinear(xMin: Double, xMax: Double, steps: Int, amplitude: Double) -> PotentialList {
+    var x: [Double] = [xMin], V : [Double] = [MXVAL] // start with really high value, should be infinite
+    let xStep = (xMax - xMin) / Double(steps)
+    
+    for i in stride(from: xMin+xStep, to: (xMax+xMin)/2.0, by: xStep) {
+        x.append(i)
+        V.append(0.0)
+    }
+    
+    for i in stride(from: (xMin+xMax)/2.0, through: xMax-xStep, by: xStep) {
+        x.append(i)
+        V.append(((i-(xMin+xMax)/2.0)*4.0*0.1))
+    }
+    
+    x.append(xMax)
+    V.append(MXVAL)
+    
+    return (xs: x, Vs: V)
+                
+}
+
 func centeredQuadraticWell(xMin: Double, xMax: Double, steps: Int, amplitude: Double) -> PotentialList {
     // centered at avg
     func centered(x: Double) -> Double {
@@ -102,6 +128,26 @@ func centeredQuadraticWell(xMin: Double, xMax: Double, steps: Int, amplitude: Do
     }
     
     return generalWell(xMin: xMin, xMax: xMax, steps: steps, f: centered)
+}
+
+func coupledQuadratic(xMin: Double, xMax: Double, steps: Int, amplitude: Double) -> PotentialList {
+    var x: [Double] = [xMin], V : [Double] = [MXVAL] // start with really high value, should be infinite
+    let xStep = (xMax - xMin) / Double(steps)
+    
+    for i in stride(from: xMin+xStep, to: xMin + (xMax-xMin)*0.5, by: xStep) {
+        x.append(i)
+        V.append((pow((i-(xMin+(xMax-xMin)/4.0)), 2.0)))
+    }
+    
+    for i in stride(from: xMin + (xMax-xMin)*0.5, through: xMax-xStep, by: xStep) {
+        x.append(i)
+        V.append((pow((i-(xMax-(xMax-xMin)/4.0)), 2.0)))
+    }
+    
+    x.append(xMax)
+    V.append(MXVAL)
+    
+    return (xs: x, Vs: V)
 }
 
 func squareBarrier(xMin: Double, xMax: Double, steps: Int, amplitude: Double) -> PotentialList {
@@ -128,4 +174,9 @@ func triangleBarrier(xMin: Double, xMax: Double, steps: Int, amplitude: Double) 
     }
     
     return generalWell(xMin: xMin, xMax: xMax, steps: steps, f: triangleBarrier)
+}
+
+
+func kronigPenney(xMin: Double, xMax: Double, steps: Int, amplitude: Double) -> PotentialList {
+    return (xs: [], Vs: [])
 }
