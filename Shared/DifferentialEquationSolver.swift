@@ -55,12 +55,12 @@ class SchrodingerSolver: NSObject, ObservableObject {
         var energyFunc : [(psi: Double, energy: Double)] = []
         
         // output from rknSolve
-        let lastPointForBC : [(psi: Double, energy: Double)] = rk4Solve(a: a, steps: steps, Vf: Vf, ic: ic,
-                                                                        eMin: eMin, eMax: eMax, eStride: eStride)
+//        let lastPointForBC : [(psi: Double, energy: Double)] = rk4Solve(a: a, steps: steps, Vf: Vf, ic: ic,
+//                                                                        eMin: eMin, eMax: eMax, eStride: eStride)
         var prevEnergy : Double = 0.0, prevPsi = 0.0
-        for tup in lastPointForBC {
-            let energyVal = tup.energy
-            let psiVal = tup.psi
+        for energyVal in stride(from: eMin, to: eMax, by: eStride) {
+            let thing = rk4SingleEigenVal(a: a, steps: steps, energyVal: energyVal, Vf: Vf, ic: ic)
+            let psiVal = thing.lastVal
             
             energyFunc.append((psi: psiVal, energy: energyVal))
             
@@ -74,7 +74,7 @@ class SchrodingerSolver: NSObject, ObservableObject {
 
                 while(abs(checkedPsi) > precision) {
                     testVal = rightVal - checkedPsi * (rightVal - leftVal) / (checkedPsi - prevPsi)
-                    possibleAnswer = rknSingleEigenVal(a: a, steps: steps, energyVal: testVal, Vf: Vf, ic: ic, iterfunc: rk4)
+                    possibleAnswer = rk4SingleEigenVal(a: a, steps: steps, energyVal: testVal, Vf: Vf, ic: ic)
                     let possibleZero = possibleAnswer.lastVal
                     
                     leftVal = rightVal
@@ -108,7 +108,7 @@ class SchrodingerSolver: NSObject, ObservableObject {
     }
     
     // use simpsons method to approximate the integral
-    func normalizeWaveFuncs(psiCollection: [[Double]], a: Double, steps: Int) -> [[Double]]{
+    func normalizeWaveFuncs(psiCollection: [[Double]], a: Double, steps: Int) -> [[Double]] {
         // integrate the function and use thact factor to ensure normalization
         assert(psiCollection.count > 0)
         var newPsiCollection : [[Double]] = []
@@ -158,6 +158,19 @@ class SchrodingerSolver: NSObject, ObservableObject {
             psiList.append(curPsi)
         }
         return (totalPsi: psiList, lastVal: curPsi)
+    }
+    
+    /// rk4SingleEigenVal:
+    /// Solve the 1D Schrodinger Equation for a single energy Eigenvalue using rk4
+    /// - Parameters:
+    ///   - a: Box width
+    ///   - steps: number of points to put in between 0,a
+    ///   - energyVal: energy eigenvalue to solve the schrodinger equation with
+    ///   - Vf: Potential to solve for
+    ///   - ic: Initial Condition
+    ///   - iterfunc: iteration function to use, either Euler's method or RK4
+    func rk4SingleEigenVal(a: Double, steps: Int, energyVal: Double, Vf: PotentialList, ic: InitialCondition) -> (totalPsi: [Double], lastVal: Double) {
+        return rknSingleEigenVal(a: a, steps: steps, energyVal: energyVal, Vf: Vf, ic: ic, iterfunc: rk4)
     }
     
     
