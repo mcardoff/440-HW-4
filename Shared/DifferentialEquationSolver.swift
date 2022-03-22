@@ -49,13 +49,14 @@ class SchrodingerSolver: NSObject, ObservableObject {
     
     func boundaryValProblem(a: Double, steps: Int, Vf: PotentialList, ic: InitialCondition,
                             eMin: Double, eMax: Double, eStride: Double) {
-        let precision = 1e-4
+        let precision = 1e-9
         // these will have the good energy eigenvalues and the functions as well:
         var goodEnergyPsiCollection : [[Double]] = [], goodEnergyValCollection : [Double] = []
         var energyFunc : [(psi: Double, energy: Double)] = []
         
         // output from rknSolve
-        let lastPointForBC : [(psi: Double, energy: Double)] = rk4Solve(a: a, steps: steps, Vf: Vf, ic: ic, eMin: 1.0, eMax: 32.0, eStride: 0.5)
+        let lastPointForBC : [(psi: Double, energy: Double)] = rk4Solve(a: a, steps: steps, Vf: Vf, ic: ic,
+                                                                        eMin: eMin, eMax: eMax, eStride: eStride)
         
         
         var prevEnergy : Double = 0.0, prevPsi = 0.0
@@ -75,7 +76,6 @@ class SchrodingerSolver: NSObject, ObservableObject {
 
                 while(abs(checkedPsi - prevPsi) > precision) {
                     testVal = rightVal - checkedPsi * (rightVal - leftVal) / (checkedPsi - prevPsi)
-//                    midEnergyVal = (rightVal + leftVal) / 2.0
                     possibleAnswer = rknSingleEigenVal(a: a, steps: steps, energyVal: testVal, Vf: Vf, ic: ic, iterfunc: rk4)
                     let possibleZero = possibleAnswer.lastVal
                     

@@ -144,7 +144,6 @@ struct ContentView: View {
         
     
     func increasesel() {
-        print(selector)
         if selector < $solver.totalFuncToPlot.count - 1 {
             selector += 1
         } else {
@@ -153,7 +152,7 @@ struct ContentView: View {
     }
     
     func decreasesel() {
-        if selector < $solver.totalFuncToPlot.count - 1 && selector > 0 {
+        if selector > 0 {
             selector -= 1
         } else {
             selector = 0

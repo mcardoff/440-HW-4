@@ -166,15 +166,32 @@ func coupledQuadratic(xMin: Double, xMax: Double, steps: Int, amplitude: Double)
 }
 
 func squareBarrier(xMin: Double, xMax: Double, steps: Int, amplitude: Double) -> PotentialList {
-    func squareBarrier(x: Double) -> Double {
-        if (x > 0.4*(xMax-xMin) && (x < 0.6*(xMax-xMin))) {
-            return amplitude
-        } else {
-            return 0.0
-        }
+    var x: [Double] = [xMin], V : [Double] = [MXVAL] // start with really high value, should be infinite
+    let xStep = (xMax - xMin) / Double(steps)
+    
+    for i in stride(from: xMin+xStep, to: xMin + (xMax-xMin)*0.4, by: xStep) {
+        
+        x.append(i)
+        V.append(0.0)
+        
     }
     
-    return generalWell(xMin: xMin, xMax: xMax, steps: steps, f: squareBarrier)
+    for i in stride(from: xMin + (xMax-xMin)*0.4, to: xMin + (xMax-xMin)*0.6, by: xStep) {
+        
+        x.append(i)
+        V.append(15.000000001)
+    }
+    
+    for i in stride(from: xMin + (xMax-xMin)*0.6, to: xMax, by: xStep) {
+        
+        x.append(i)
+        V.append(0.0)
+    }
+    
+    x.append(xMax)
+    V.append(MXVAL)
+    
+    return (xs: x, Vs: V)
 }
 
 func triangleBarrier(xMin: Double, xMax: Double, steps: Int, amplitude: Double) -> PotentialList {
