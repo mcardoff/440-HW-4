@@ -45,6 +45,7 @@ class SchrodingerSolver: NSObject, ObservableObject {
     @Published var energyFunctional : [plotDataType] = []
     @Published var potentialPlot : [plotDataType] = []
     @Published var energyEigenValues : [Double] = []
+    @Published var eigenvalueText : String = ""
     
     /// boundaryValProblem
     /// Solve the Boundary Value problem associated with the Schrodinger equation and its potential
@@ -106,6 +107,13 @@ class SchrodingerSolver: NSObject, ObservableObject {
             prevPsi = psiVal
             energyFunc.append((psi: psiVal, energy: energyVal))
         }
+        
+        var tempStringList : [String] = []
+        for num in energyEigenValues {
+            tempStringList.append(String(format: "%0.16f", num))
+        }
+        
+        eigenvalueText = tempStringList.joined(separator: "\n")
         
         // make sure the plotting does not look weird
         energyFunc.sort(by: {

@@ -37,7 +37,7 @@ class PlotDataClass: NSObject, ObservableObject {
         changingPlotParameters.xLabel = "x"
         changingPlotParameters.yLabel = "y"
         changingPlotParameters.lineColor = .blue()
-        changingPlotParameters.title = "Infinite Square Well"
+        changingPlotParameters.title = "1-D Schrodinger"
         
     }
     

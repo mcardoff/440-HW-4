@@ -138,11 +138,15 @@ struct ContentView: View {
                     .tabItem {
                         Text("Energy Functional Plot")
                     }
+                
+                TextEditor(text: $solver.eigenvalueText)
+                    .tabItem {
+                        Text("Energy Eigenvalues")
+                    }
             }
         }
     }
         
-    
     func increasesel() {
         if selector < $solver.totalFuncToPlot.count - 1 {
             selector += 1
@@ -169,6 +173,7 @@ struct ContentView: View {
         let ic : InitialCondition = (psi: 0, psip: 1)
         let V = getPotential(xMin: 0, xMax: wellWidth!, steps: numSteps!, choice: potentialVal, amplitude: amplitude!)
 //        print(V)
+        plotData.plotArray[0].changingPlotParameters.title = potentialVal.toString()
         solver.boundaryValProblem(a: wellWidth!, steps: numSteps!, Vf: V, ic: ic,
                                   eMin: eMin!, eMax: eMax!, eStride: eStep!)
         print(solver.totalFuncToPlot.count)
