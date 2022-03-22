@@ -7,7 +7,7 @@
 
 import Foundation
 
-let MXVAL = 100000.0
+let MXVAL = 100000.0 // global maximum value
 
 typealias CoordTuple = (x: Double, y: Double)
 

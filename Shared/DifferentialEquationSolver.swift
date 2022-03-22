@@ -57,8 +57,6 @@ class SchrodingerSolver: NSObject, ObservableObject {
         // output from rknSolve
         let lastPointForBC : [(psi: Double, energy: Double)] = rk4Solve(a: a, steps: steps, Vf: Vf, ic: ic,
                                                                         eMin: eMin, eMax: eMax, eStride: eStride)
-        
-        
         var prevEnergy : Double = 0.0, prevPsi = 0.0
         for tup in lastPointForBC {
             let energyVal = tup.energy
@@ -74,7 +72,7 @@ class SchrodingerSolver: NSObject, ObservableObject {
                 var testVal = 0.0
                 var possibleAnswer : (totalPsi: [Double], lastVal: Double) = (totalPsi: [], -12.6)
 
-                while(abs(checkedPsi - prevPsi) > precision) {
+                while(abs(checkedPsi) > precision) {
                     testVal = rightVal - checkedPsi * (rightVal - leftVal) / (checkedPsi - prevPsi)
                     possibleAnswer = rknSingleEigenVal(a: a, steps: steps, energyVal: testVal, Vf: Vf, ic: ic, iterfunc: rk4)
                     let possibleZero = possibleAnswer.lastVal
