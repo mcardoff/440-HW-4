@@ -13,7 +13,7 @@ typealias CoordTuple = (x: Double, y: Double)
 
 enum PotentialType: CaseIterable, Identifiable {
     static var allCases : [PotentialType] {
-        return [.square, .linear, .quadratic, .centeredquadratic, .squarebarrier, .trianglebarrier, .squarepluslinear, .coupledQuadratic, .coupledSquarePlusField]
+        return [.square, .linear, .quadratic, .centeredquadratic, .squarebarrier, .trianglebarrier, .squarepluslinear, .coupledQuadratic, .coupledSquarePlusField, .kronigPenney]
     }
     case square
     case linear
@@ -24,6 +24,7 @@ enum PotentialType: CaseIterable, Identifiable {
     case trianglebarrier
     case coupledQuadratic
     case coupledSquarePlusField
+    case kronigPenney
     
     var id: Self { self }
     
@@ -48,6 +49,8 @@ enum PotentialType: CaseIterable, Identifiable {
             return "Square+Linear"
         case .coupledSquarePlusField:
             return "Coupled Square+Field"
+        case .kronigPenney:
+            return "Kronig Penney"
         }
     }
 }
@@ -74,6 +77,8 @@ func getPotential(xMin: Double, xMax: Double, steps: Int, choice: PotentialType,
         return squarePlusLinear(xMin: xMin, xMax: xMax, steps: steps, amplitude: amplitude)
     case .coupledSquarePlusField:
         return coupledSquarePlusField(xMin: xMin, xMax: xMax, steps: steps, amplitude: amplitude)
+    case .kronigPenney:
+        return kronigPenney(xMin: xMin, xMax: xMax, steps: steps, amplitude: amplitude)
     }
 }
 
@@ -146,12 +151,12 @@ func coupledQuadratic(xMin: Double, xMax: Double, steps: Int, amplitude: Double)
     
     for i in stride(from: xMin+xStep, to: xMin + (xMax-xMin)*0.5, by: xStep) {
         x.append(i)
-        V.append((pow((i-(xMin+(xMax-xMin)/4.0)), 2.0)))
+        V.append(amplitude*(pow((i-(xMin+(xMax-xMin)/4.0)), 2.0)))
     }
     
     for i in stride(from: xMin + (xMax-xMin)*0.5, through: xMax-xStep, by: xStep) {
         x.append(i)
-        V.append((pow((i-(xMax-(xMax-xMin)/4.0)), 2.0)))
+        V.append(amplitude*(pow((i-(xMax-(xMax-xMin)/4.0)), 2.0)))
     }
     
     x.append(xMax)
@@ -200,7 +205,7 @@ func coupledSquarePlusField(xMin: Double, xMax: Double, steps: Int, amplitude: D
     for i in stride(from: xMin + (xMax-xMin)*0.4, to: xMin + (xMax-xMin)*0.6, by: xStep) {
         
         x.append(i)
-        V.append(4.0)
+        V.append(amplitude)
         
     }
     
@@ -218,5 +223,42 @@ func coupledSquarePlusField(xMin: Double, xMax: Double, steps: Int, amplitude: D
 }
 
 func kronigPenney(xMin: Double, xMax: Double, steps: Int, amplitude: Double) -> PotentialList {
-    return (xs: [], Vs: [])
+    var x: [Double] = [xMin], V : [Double] = [MXVAL] // start with really high value, should be infinite
+    let xStep = (xMax - xMin) / Double(steps)
+    let numberOfBarriers = 2.0
+    let barrierPotential = amplitude
+    let latticeSpacing = xMax/numberOfBarriers
+    let barrierWidth = 1.0/6.0*latticeSpacing
+    var currentBarrierPosition = 0.0
+    var barrierNumber = 1
+    var inBarrier = false
+    
+    for i in stride(from: xMin+xStep, through: xMax-xStep, by: xStep) {
+        
+        currentBarrierPosition = -latticeSpacing/2.0 + Double(barrierNumber)*latticeSpacing
+        
+        if( (abs(i-currentBarrierPosition)) < (barrierWidth/2.0)) {
+            inBarrier = true
+            x.append(i)
+            V.append(barrierPotential)
+        }
+        else {
+            
+            if (inBarrier){
+                
+                inBarrier = false
+                barrierNumber += 1
+                
+            }
+            
+            x.append(i)
+            V.append(0.0)
+            
+        }
+    }
+    
+    x.append(xMax)
+    V.append(MXVAL)
+    
+    return (xs: x, Vs: V)
 }

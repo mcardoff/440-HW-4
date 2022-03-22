@@ -115,7 +115,7 @@ class SchrodingerSolver: NSObject, ObservableObject {
         assert(psiCollection.count > 0)
         var newPsiCollection : [[Double]] = []
         for list in psiCollection {
-            assert(list.count == steps)
+//            assert(list.count == steps)
             
             var sum = 0.0
             for item in list {

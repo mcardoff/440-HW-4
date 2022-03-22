@@ -144,7 +144,8 @@ struct ContentView: View {
         
     
     func increasesel() {
-        if selector < $solver.totalFuncToPlot.count - 1 && selector > 0 {
+        print(selector)
+        if selector < $solver.totalFuncToPlot.count - 1 {
             selector += 1
         } else {
             selector = 0
@@ -152,7 +153,7 @@ struct ContentView: View {
     }
     
     func decreasesel() {
-        if selector < $solver.totalFuncToPlot.count - 1 {
+        if selector < $solver.totalFuncToPlot.count - 1 && selector > 0 {
             selector -= 1
         } else {
             selector = 0
@@ -171,6 +172,7 @@ struct ContentView: View {
 //        print(V)
         solver.boundaryValProblem(a: wellWidth!, steps: numSteps!, Vf: V, ic: ic,
                                   eMin: eMin!, eMax: eMax!, eStride: eStep!)
+        print(solver.totalFuncToPlot.count)
     }
 }
 
