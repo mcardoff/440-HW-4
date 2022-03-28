@@ -92,12 +92,13 @@ struct ContentView: View {
                     .frame(width: 100)
                     .padding()
                 
-                Button("Next Energy Val", action: self.increasesel)
-                    .padding()
-                
-                Button("Prev Energy Val", action: self.decreasesel)
-                    .padding()
-                
+                HStack {
+                    Button("+E", action: self.increasesel)
+                        .padding()
+                    
+                    Button("-E", action: self.decreasesel)
+                        .padding()
+                }
                 Button("Clear", action: self.clear)
                     .frame(width: 100)
                     .padding()
