@@ -45,6 +45,7 @@
 		2CD73EC427C97837002EA94B /* PlotDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD73EC227C97837002EA94B /* PlotDataClass.swift */; };
 		2CD73EC527C97837002EA94B /* PlotDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD73EC227C97837002EA94B /* PlotDataClass.swift */; };
 		2CD73EC627C97837002EA94B /* PlotDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD73EC227C97837002EA94B /* PlotDataClass.swift */; };
+		2CFB7F3C27F265FE00C0A8F8 /* Potential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2E4F927C0604D00D208C7 /* Potential.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,7 +76,7 @@
 		2CD2E4D127C057AF00D208C7 /* Tests_iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOS.swift; sourceTree = "<group>"; };
 		2CD2E4D327C057AF00D208C7 /* Tests_iOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOSLaunchTests.swift; sourceTree = "<group>"; };
 		2CD2E4D927C057AF00D208C7 /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2CD2E4DD27C057AF00D208C7 /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
+		2CD2E4DD27C057AF00D208C7 /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Tests_macOS.swift; path = "/Users/michaelcardiff/440 HWs/HW4/Schrodinger-Solver/Tests macOS/Tests_macOS.swift"; sourceTree = "<absolute>"; wrapsLines = 1; };
 		2CD2E4DF27C057AF00D208C7 /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
 		2CD2E4F527C057D400D208C7 /* DifferentialEquationSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifferentialEquationSolver.swift; sourceTree = "<group>"; };
 		2CD2E4F927C0604D00D208C7 /* Potential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Potential.swift; sourceTree = "<group>"; };
@@ -402,6 +403,7 @@
 			files = (
 				2CD2E4D427C057AF00D208C7 /* Tests_iOSLaunchTests.swift in Sources */,
 				2CD73EB627C977F8002EA94B /* ChangingPlotParameters.swift in Sources */,
+				2CFB7F3C27F265FE00C0A8F8 /* Potential.swift in Sources */,
 				2CD73EAE27C97716002EA94B /* CalculatePlotData.swift in Sources */,
 				2CD2E4D227C057AF00D208C7 /* Tests_iOS.swift in Sources */,
 				2CD73EC527C97837002EA94B /* PlotDataClass.swift in Sources */,

@@ -17,6 +17,16 @@ class Tests_macOS: XCTestCase {
 
         // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
+    
+    func testBC() {
+        // boundary conditions should be that psi(0) = 0 = psi(L)
+        var solver = SchrodingerSolver()
+        let xMin = 0.0, xMax = 1.0, amplitude = 0.0
+        let potential : PotentialType = .squareWell, potentialList = getPotential(xMin: xMin, xMax: xMax, steps: 250, choice: potential, amplitude: amplitude)
+        solver.boundaryValProblem(a: xMax - xMin, steps: 250, Vf: potentialList, ic: (psi: 0, psip: 1), eMin: 0.5, eMax: 5, eStride: 0.75)
+        XCTAssertEqual(solver.totalFuncToPlot[0][0][1], 0.0, accuracy: 1e-10)
+        XCTAssertEqual(solver.totalFuncToPlot[0].last[1], 0.0, accuracy: 1e-10)
+    }
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.

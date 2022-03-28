@@ -60,7 +60,7 @@ class SchrodingerSolver: NSObject, ObservableObject {
     /// - returns: Normalized wavefunctions
     func boundaryValProblem(a: Double, steps: Int, Vf: PotentialList, ic: InitialCondition,
                             eMin: Double, eMax: Double, eStride: Double) {
-        let precision = 1e-9
+        let precision = 1e-10
         // these will have the good energy eigenvalues and the functions as well:
         var goodEnergyPsiCollection : [[Double]] = [], goodEnergyValCollection : [Double] = []
         var energyFunc : [(psi: Double, energy: Double)] = []
